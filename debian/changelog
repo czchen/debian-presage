@@ -1,3 +1,10 @@
+presage (0.8.7-2) unstable; urgency=low
+
+  * Fix build failure with GCC 4.7. Closes: #672100.
+  * Fix out-of-date-standards-version lintian warning.
+
+ -- Matteo Vescovi <matteo.vescovi@yahoo.co.uk>  Wed, 09 May 2012 19:07:18 +0100
+
 presage (0.8.7-1) unstable; urgency=low
 
   * New upstream release.
