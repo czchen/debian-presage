@@ -1,0 +1,12 @@
+Fix compilation errors triggered by hardening flags.
+
+--- a/apps/gtk/gprompter/gprompter.c
++++ b/apps/gtk/gprompter/gprompter.c
+@@ -507,6 +507,7 @@
+ 				     GTK_DIALOG_DESTROY_WITH_PARENT,
+ 				     GTK_MESSAGE_ERROR,
+ 				     GTK_BUTTONS_CLOSE,
++				     "%s",
+ 				     message);
+     gtk_dialog_run (GTK_DIALOG (dialog));
+     gtk_widget_destroy (dialog);
