@@ -12,12 +12,10 @@ PYVERS=$(shell pyversions -vs)
 %:
 	dh $@ --with autotools_dev --with python2
 
-# Override needed to remove embedded tinyxml source code to ensure
-# that build uses system libtinyxml
+# Ensure dbus python build is cleaned out
 #
 override_dh_auto_clean:
 	dh_auto_clean
-	rm -f src/lib/tinyxml/*.h src/lib/tinyxml/*.cpp
 	rm -rf apps/dbus/build
 
 # Override needed to:
