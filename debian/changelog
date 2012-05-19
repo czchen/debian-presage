@@ -1,3 +1,9 @@
+presage (0.8.7-3) unstable; urgency=low
+
+  * Enable build hardening.
+
+ -- Matteo Vescovi <matteo.vescovi@yahoo.co.uk>  Sat, 19 May 2012 11:21:30 +0100
+
 presage (0.8.7-2) unstable; urgency=low
 
   * Fix build failure with GCC 4.7. Closes: #672100.
