@@ -1,0 +1,38 @@
+Enable hardening flags for Python extension module
+--- a/bindings/python/Makefile.am
++++ b/bindings/python/Makefile.am
+@@ -41,7 +41,7 @@
+ 		$(PYTHON) setup.py build --compiler=mingw32 \
+ 	  ;; \
+ 	  *) \
+-		$(PYTHON) setup.py build \
++		CPPFLAGS=$(CPPFLAGS) CXXFLAGS="$(CXXFLAGS)" LDFLAGS="$(LDFLAGS)" $(PYTHON) setup.py build \
+ 	  ;; \
+ 	esac;
+ 
+--- a/bindings/python/setup.py.in
++++ b/bindings/python/setup.py.in
+@@ -21,6 +21,14 @@
+ 
+ # Process this file with configure to produce setup.py
+ 
++def getenv_list(var_name):
++    from os import getenv
++    var = getenv(var_name)
++    if var:
++        return var.split()
++    else:
++        return []
++
+ from distutils.core import setup, Extension
+ setup(name='python-@PACKAGE_NAME@',
+       version='@PACKAGE_VERSION@',
+@@ -35,5 +43,7 @@
+       ext_modules=[Extension('_presage', ['presage_wrap.cpp'],
+                              include_dirs=['@top_srcdir@/src/lib'],
+                              library_dirs=['../../src/lib/.libs'],
+-                             libraries=['presage'])],
++                             libraries=['presage'],
++                             extra_compile_args=getenv_list('CPPFLAGS') + getenv_list('CXXFLAGS'),
++                             extra_link_args=getenv_list('LDFLAGS'))]
+       )

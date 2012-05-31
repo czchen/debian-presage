@@ -11,6 +11,7 @@ PYVERS=$(shell pyversions -vs)
 # Enable build hardening
 #
 override_dh_auto_configure:
+	autoreconf
 	dh_auto_configure -- $(shell dpkg-buildflags --export=configure)
 
 # Ensure dbus python build is cleaned out
@@ -31,7 +32,7 @@ override_dh_auto_install:
 		ln -s /usr/share/javascript/jquery/jquery.js debian/tmp/usr/share/presage/html/jquery.js; \
 	fi
 	set -e; for i in $(PYVERS); do \
-		(cd bindings/python && python$$i setup.py install --root $(CURDIR)/debian/python-presage --prefix usr --install-layout=deb); \
+		(cd bindings/python && $(shell dpkg-buildflags --export=configure) python$$i setup.py install --root $(CURDIR)/debian/python-presage --prefix usr --install-layout=deb); \
 		(cd apps/python && python$$i setup.py install --root $(CURDIR)/debian/pyprompter --prefix usr --install-layout=deb); \
 		(cd apps/dbus && python$$i setup.py install --root $(CURDIR)/debian/presage-dbus --prefix usr --install-layout=deb); \
 	done
