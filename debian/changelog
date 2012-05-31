@@ -1,8 +1,16 @@
-presage (0.8.7-3) unstable; urgency=low
+presage (0.8.7-4) unstable; urgency=low
 
   * Enable build hardening.
 
- -- Matteo Vescovi <matteo.vescovi@yahoo.co.uk>  Sat, 19 May 2012 11:21:30 +0100
+ -- Matteo Vescovi <matteo.vescovi@yahoo.co.uk>  Thu, 31 May 2012 18:51:31 +0100
+
+presage (0.8.7-3) unstable; urgency=medium
+
+  * debian/control: move doxygen and graphviz to Build-Depends-Indep.
+    This will avoild builing the docs during binary-only build, thus making
+    the package a lot easier to build on slow architectures. Closes: #675100.
+
+ -- Matteo Vescovi <matteo.vescovi@yahoo.co.uk>  Wed, 30 May 2012 21:58:15 +0100
 
 presage (0.8.7-2) unstable; urgency=low
 

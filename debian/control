@@ -10,8 +10,6 @@ Build-Depends: debhelper (>= 7.0.50~),
  libncurses5-dev | libncurses-dev,
  help2man,
  libcppunit-dev (>= 1.9.6),
- doxygen,
- graphviz,
  python-all-dev (>= 2.6.6-3~),
  swig2.0 (>= 2.0.4),
  libgtk2.0-dev (>= 2.12),
@@ -19,6 +17,7 @@ Build-Depends: debhelper (>= 7.0.50~),
  autoconf,
  automake,
  libtool
+Build-Depends-Indep: doxygen, graphviz
 Standards-Version: 3.9.3
 Homepage: http://presage.sourceforge.net/
 Vcs-Svn: https://presage.svn.sourceforge.net/svnroot/presage/trunk/packaging/debian/presage/trunk
