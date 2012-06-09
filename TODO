@@ -6,19 +6,15 @@ The Presage project
 TODO list
 ---------
 
+
 GUI apps:
+* qprompter
+** integrate into build system
 * gprompter
 ** gray in and out redo and undo menu items
 ** toolbar icon size
 ** autocomp max height
 ** would be nice to have status bar with KSR rate
-
-Absolute first:
- - make predictive plugins support filters and write related tests
- - implement logger level inheritance from parent module
- - SqliteDatabaseConnector callback: had to disable logging there because
-   static method, investigate on how it can be re-enabled
- - test performance with different n values in n-gram
 
 Architectural restructure: 
 - selector
@@ -53,33 +49,36 @@ Architectural restructure:
   between ContextTracker and Predictor would disappear, being
   substituted by a single dependency on Registry and the introduction
   of a new Learner class (name still to decide).
- 
+
   The registry should eventually just be a simple wrapper around
   plump.
 
 
 Short term:
- - Consider removing the following public methods from Variable
+* Logger
+ - implement logger level inheritance from parent module
+ - SqliteDatabaseConnector callback: had to disable logging there because
+   static method, investigate on how it can be re-enabled
+* test performance with different n values in n-gram
+* Consider removing the following public methods from Variable
    interface:
    . Variable(const std::vector<std::string>& variable);
    . size_t size() const;
- - pluginManagerDriver, pluginManager are currently not necessary, as
-   dynamic plug-in loading is disabled. This functionality will
-   eventually be reinstated and supplied by the plump project.
-   files:
-      src/core/pluginManager.h
-      src/core/pluginManager.cpp
-      test/core/pluginManagerDriver.cpp
-   should be taken care of as part of plump integration
+* consider removing src/tools/ngram.* code
+* smoothed n-gram predictor
+  - is it possible to reduce calls to count() to improve performance?
+* rationalise user-specific and system data files location and config files location
+  - option to comply with XDG basedir spec for config files and data files
 * add proper unicode support
-* enable dictionary plugin by default (dictionary file?)
+* determine whether to enable dictionary plugin by default
+   (dictionary file?)
 * rewrite strtoupper and strtolower utility functions to use a pointer
    to function to do the individual char conversion
 * add ContextTracker tests for control chars
 * put everything inside the presage namespace
 * write more integration tests
 * write Combiner implementations (various combination strategies)
-* add more tests to increase coverage
+* add more tests, increase test coverage
 * bug: validate string passed to sql_exec query function, unsanitized
    string can cause security problems
 * implement activation map predictive plugin
@@ -92,10 +91,10 @@ Short term:
 
 Medium term:
 * fix character codes
-* overhaul of presage architecture and integration of the plump framework
+* integration of the plump framework
 
 Long term:
-* use timer alarm to implement threaded plugins controller
+* use timer alarm to implement threaded predictor activator
 * improve exceptions handling
 * add more predictive plugins
 

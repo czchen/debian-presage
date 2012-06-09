@@ -29,25 +29,25 @@
 #include <algorithm>
 #include <cmath>
 
-const char* ARPAPredictor::LOGGER     = "Presage.Predictors.ARPAPredictor.LOGGER";
-const char* ARPAPredictor::ARPAFILENAME = "Presage.Predictors.ARPAPredictor.ARPAFILENAME";
-const char* ARPAPredictor::VOCABFILENAME = "Presage.Predictors.ARPAPredictor.VOCABFILENAME";
-const char* ARPAPredictor::TIMEOUT = "Presage.Predictors.ARPAPredictor.TIMEOUT";
-
 
 #define OOV "<UNK>"
 
 
 
-ARPAPredictor::ARPAPredictor(Configuration* config, ContextTracker* ct)
+ARPAPredictor::ARPAPredictor(Configuration* config, ContextTracker* ct, const char* name)
     : Predictor(config,
 		ct,
-		"ARPAPredictor",
+		name,
 		"ARPAPredictor, a predictor relying on an ARPA language model",
 		"ARPAPredictor, long description."
 	),
       dispatcher (this)
 {
+    LOGGER     = PREDICTORS + name + ".LOGGER";
+    ARPAFILENAME = PREDICTORS + name + ".ARPAFILENAME";
+    VOCABFILENAME = PREDICTORS + name + ".VOCABFILENAME";
+    TIMEOUT = PREDICTORS + name + ".TIMEOUT";
+
     // build notification dispatch map
     dispatcher.map (config->find (LOGGER), & ARPAPredictor::set_logger);
     dispatcher.map (config->find (VOCABFILENAME), & ARPAPredictor::set_vocab_filename);
@@ -94,7 +94,7 @@ void ARPAPredictor::loadVocabulary()
 	vocabCode[row]=code;
 	vocabDecode[code]=row;
 
-	//logger << DEBUG << "["<<row<<"] -> "<< code<<endl;
+	logger << DEBUG << "["<<row<<"] -> "<< code<<endl;
 
 	code++;
     }
@@ -229,7 +229,7 @@ void ARPAPredictor::addUnigram(std::string row)
 
 	unigramMap[wd1]= ARPAData(logProb,logAlfa);
 
-	//logger << DEBUG << "adding unigram ["<<wd1Str<< "] -> "<<logProb<<" "<<logAlfa<<endl;
+	logger << DEBUG << "adding unigram ["<<wd1Str<< "] -> "<<logProb<<" "<<logAlfa<<endl;
     }
 
 
@@ -258,7 +258,7 @@ void ARPAPredictor::addBigram(std::string row)
 
 	bigramMap[BigramKey(wd1,wd2)]=ARPAData(logProb,logAlfa);
 
-	//logger << DEBUG << "adding bigram ["<<wd1Str<< "] ["<<wd2Str<< "] -> "<<logProb<<" "<<logAlfa<<endl;
+	logger << DEBUG << "adding bigram ["<<wd1Str<< "] ["<<wd2Str<< "] -> "<<logProb<<" "<<logAlfa<<endl;
     }
 
     bigramCount++;
@@ -286,7 +286,7 @@ void ARPAPredictor::addTrigram(std::string row)
 	int wd3 = vocabCode[wd3Str];
 
 	trigramMap[TrigramKey(wd1,wd2,wd3)]=logProb;
-	//logger << DEBUG << "adding trigram ["<<wd1Str<< "] ["<<wd2Str<< "] ["<<wd3Str<< "] -> "<<logProb <<endl;
+	logger << DEBUG << "adding trigram ["<<wd1Str<< "] ["<<wd2Str<< "] ["<<wd3Str<< "] -> "<<logProb <<endl;
 
     }
 

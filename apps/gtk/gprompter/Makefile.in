@@ -153,7 +153,12 @@ am__libscintilla_la_SOURCES_DIST = scintilla/src/AutoComplete.cxx \
 	scintilla/lexers/LexMSSQL.cxx scintilla/lexers/LexAsn1.cxx \
 	scintilla/lexers/LexInno.cxx scintilla/lexers/LexSpice.cxx \
 	scintilla/lexers/LexPOV.cxx scintilla/lexers/LexA68k.cxx \
-	scintilla/lexers/LexModula.cxx scintilla/lexlib/LexerSimple.h \
+	scintilla/lexers/LexModula.cxx \
+	scintilla/lexers/LexCoffeeScript.cxx \
+	scintilla/lexers/LexAVS.cxx scintilla/lexers/LexTCMD.cxx \
+	scintilla/lexers/LexECL.cxx scintilla/lexers/LexOScript.cxx \
+	scintilla/lexers/LexVisualProlog.cxx \
+	scintilla/lexlib/LexerSimple.h \
 	scintilla/lexlib/LexerNoExceptions.cxx \
 	scintilla/lexlib/LexerModule.cxx scintilla/lexlib/Accessor.h \
 	scintilla/lexlib/LexerSimple.cxx \
@@ -276,7 +281,13 @@ am__objects_3 =
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexSpice.lo \
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexPOV.lo \
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexA68k.lo \
-@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexModula.lo
+@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexModula.lo \
+@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexCoffeeScript.lo \
+@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexAVS.lo \
+@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexTCMD.lo \
+@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexECL.lo \
+@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexOScript.lo \
+@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexVisualProlog.lo
 @BUILD_GTK_PROMPTER_TRUE@am__objects_5 =  \
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexerNoExceptions.lo \
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexerModule.lo \
@@ -456,6 +467,7 @@ STRIP = @STRIP@
 SWIG = @SWIG@
 TEXT2IDNGRAM = @TEXT2IDNGRAM@
 TEXT2WFREQ = @TEXT2WFREQ@
+UNIX2DOS = @UNIX2DOS@
 VERSION = @VERSION@
 WFREQ2VOCAB = @WFREQ2VOCAB@
 abs_builddir = @abs_builddir@
@@ -690,7 +702,13 @@ top_srcdir = @top_srcdir@
 @BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexSpice.cxx \
 @BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexPOV.cxx \
 @BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexA68k.cxx \
-@BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexModula.cxx 
+@BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexModula.cxx \
+@BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexCoffeeScript.cxx \
+@BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexAVS.cxx \
+@BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexTCMD.cxx \
+@BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexECL.cxx \
+@BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexOScript.cxx \
+@BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexVisualProlog.cxx
 
 @BUILD_GTK_PROMPTER_TRUE@libscintilla_la_SOURCES = $(SCINTILLA_SRC) $(SCINTILLA_GTK) $(SCINTILLA_INCLUDE) $(SCINTILLA_LEXERS) $(SCINTILLA_LEXLIB)
 @BUILD_GTK_PROMPTER_TRUE@libscintilla_la_CXXFLAGS = -DNDEBUG -DGTK -DSCI_LEXER -DG_THREADS_IMPL_NONE
@@ -838,6 +856,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexASY.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexAU3.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexAVE.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexAVS.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexAbaqus.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexAda.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexAsm.Plo@am__quote@
@@ -852,10 +871,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexCSS.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexCaml.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexCmake.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexCoffeeScript.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexConf.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexCrontab.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexCsound.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexD.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexECL.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexEScript.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexEiffel.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexErlang.Plo@am__quote@
@@ -882,6 +903,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexMySQL.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexNimrod.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexNsis.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexOScript.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexOpal.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexOthers.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexPB.Plo@am__quote@
@@ -908,11 +930,13 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexTADS3.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexTAL.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexTCL.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexTCMD.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexTeX.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexTxt2tags.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexVB.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexVHDL.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexVerilog.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexVisualProlog.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexYAML.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexerBase.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexerModule.Plo@am__quote@
@@ -1740,6 +1764,48 @@ libscintilla_la-LexModula.lo: scintilla/lexers/LexModula.cxx
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='scintilla/lexers/LexModula.cxx' object='libscintilla_la-LexModula.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -c -o libscintilla_la-LexModula.lo `test -f 'scintilla/lexers/LexModula.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexModula.cxx
+
+libscintilla_la-LexCoffeeScript.lo: scintilla/lexers/LexCoffeeScript.cxx
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -MT libscintilla_la-LexCoffeeScript.lo -MD -MP -MF $(DEPDIR)/libscintilla_la-LexCoffeeScript.Tpo -c -o libscintilla_la-LexCoffeeScript.lo `test -f 'scintilla/lexers/LexCoffeeScript.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexCoffeeScript.cxx
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscintilla_la-LexCoffeeScript.Tpo $(DEPDIR)/libscintilla_la-LexCoffeeScript.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='scintilla/lexers/LexCoffeeScript.cxx' object='libscintilla_la-LexCoffeeScript.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -c -o libscintilla_la-LexCoffeeScript.lo `test -f 'scintilla/lexers/LexCoffeeScript.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexCoffeeScript.cxx
+
+libscintilla_la-LexAVS.lo: scintilla/lexers/LexAVS.cxx
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -MT libscintilla_la-LexAVS.lo -MD -MP -MF $(DEPDIR)/libscintilla_la-LexAVS.Tpo -c -o libscintilla_la-LexAVS.lo `test -f 'scintilla/lexers/LexAVS.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexAVS.cxx
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscintilla_la-LexAVS.Tpo $(DEPDIR)/libscintilla_la-LexAVS.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='scintilla/lexers/LexAVS.cxx' object='libscintilla_la-LexAVS.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -c -o libscintilla_la-LexAVS.lo `test -f 'scintilla/lexers/LexAVS.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexAVS.cxx
+
+libscintilla_la-LexTCMD.lo: scintilla/lexers/LexTCMD.cxx
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -MT libscintilla_la-LexTCMD.lo -MD -MP -MF $(DEPDIR)/libscintilla_la-LexTCMD.Tpo -c -o libscintilla_la-LexTCMD.lo `test -f 'scintilla/lexers/LexTCMD.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexTCMD.cxx
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscintilla_la-LexTCMD.Tpo $(DEPDIR)/libscintilla_la-LexTCMD.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='scintilla/lexers/LexTCMD.cxx' object='libscintilla_la-LexTCMD.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -c -o libscintilla_la-LexTCMD.lo `test -f 'scintilla/lexers/LexTCMD.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexTCMD.cxx
+
+libscintilla_la-LexECL.lo: scintilla/lexers/LexECL.cxx
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -MT libscintilla_la-LexECL.lo -MD -MP -MF $(DEPDIR)/libscintilla_la-LexECL.Tpo -c -o libscintilla_la-LexECL.lo `test -f 'scintilla/lexers/LexECL.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexECL.cxx
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscintilla_la-LexECL.Tpo $(DEPDIR)/libscintilla_la-LexECL.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='scintilla/lexers/LexECL.cxx' object='libscintilla_la-LexECL.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -c -o libscintilla_la-LexECL.lo `test -f 'scintilla/lexers/LexECL.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexECL.cxx
+
+libscintilla_la-LexOScript.lo: scintilla/lexers/LexOScript.cxx
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -MT libscintilla_la-LexOScript.lo -MD -MP -MF $(DEPDIR)/libscintilla_la-LexOScript.Tpo -c -o libscintilla_la-LexOScript.lo `test -f 'scintilla/lexers/LexOScript.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexOScript.cxx
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscintilla_la-LexOScript.Tpo $(DEPDIR)/libscintilla_la-LexOScript.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='scintilla/lexers/LexOScript.cxx' object='libscintilla_la-LexOScript.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -c -o libscintilla_la-LexOScript.lo `test -f 'scintilla/lexers/LexOScript.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexOScript.cxx
+
+libscintilla_la-LexVisualProlog.lo: scintilla/lexers/LexVisualProlog.cxx
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -MT libscintilla_la-LexVisualProlog.lo -MD -MP -MF $(DEPDIR)/libscintilla_la-LexVisualProlog.Tpo -c -o libscintilla_la-LexVisualProlog.lo `test -f 'scintilla/lexers/LexVisualProlog.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexVisualProlog.cxx
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscintilla_la-LexVisualProlog.Tpo $(DEPDIR)/libscintilla_la-LexVisualProlog.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='scintilla/lexers/LexVisualProlog.cxx' object='libscintilla_la-LexVisualProlog.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -c -o libscintilla_la-LexVisualProlog.lo `test -f 'scintilla/lexers/LexVisualProlog.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexVisualProlog.cxx
 
 libscintilla_la-LexerNoExceptions.lo: scintilla/lexlib/LexerNoExceptions.cxx
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -MT libscintilla_la-LexerNoExceptions.lo -MD -MP -MF $(DEPDIR)/libscintilla_la-LexerNoExceptions.Tpo -c -o libscintilla_la-LexerNoExceptions.lo `test -f 'scintilla/lexlib/LexerNoExceptions.cxx' || echo '$(srcdir)/'`scintilla/lexlib/LexerNoExceptions.cxx

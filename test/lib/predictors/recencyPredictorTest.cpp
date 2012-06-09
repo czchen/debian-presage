@@ -31,10 +31,12 @@
 CPPUNIT_TEST_SUITE_REGISTRATION( RecencyPredictorTest );
 
 const int RecencyPredictorTest::SIZE = 20;
-const char* RecencyPredictorTest::LOGGER = "Presage.Predictors.RecencyPredictor.LOGGER";
-const char* RecencyPredictorTest::LAMBDA = "Presage.Predictors.RecencyPredictor.LAMBDA";
-const char* RecencyPredictorTest::CUTOFF = "Presage.Predictors.RecencyPredictor.CUTOFF_THRESHOLD";
-const char* RecencyPredictorTest::N_0    = "Presage.Predictors.RecencyPredictor.N_0";
+const char* RecencyPredictorTest::NAME      = "RecencyPredictor";
+const char* RecencyPredictorTest::PREDICTOR = "Presage.Predictors.RecencyPredictor.PREDICTOR";
+const char* RecencyPredictorTest::LOGGER    = "Presage.Predictors.RecencyPredictor.LOGGER";
+const char* RecencyPredictorTest::LAMBDA    = "Presage.Predictors.RecencyPredictor.LAMBDA";
+const char* RecencyPredictorTest::CUTOFF    = "Presage.Predictors.RecencyPredictor.CUTOFF_THRESHOLD";
+const char* RecencyPredictorTest::N_0       = "Presage.Predictors.RecencyPredictor.N_0";
 
 void RecencyPredictorTest::setUp()
 {
@@ -44,10 +46,12 @@ void RecencyPredictorTest::setUp()
     // set context tracker config variables
     config->insert ("Presage.ContextTracker.LOGGER", "ERROR");
     config->insert ("Presage.ContextTracker.SLIDING_WINDOW_SIZE", "80");
+    config->insert ("Presage.ContextTracker.LOWERCASE_MODE", "no");
     // set predictor registry config variables
     config->insert ("Presage.PredictorRegistry.LOGGER", "ERROR");
     config->insert ("Presage.PredictorRegistry.PREDICTORS", "");
     // set recency predictor config variables
+    config->insert (PREDICTOR, NAME);
     config->insert (LOGGER, "ALL");
     config->insert (LAMBDA, "1");
     config->insert (N_0,    "1");
@@ -74,7 +78,7 @@ void RecencyPredictorTest::testMaxPartialPredictionSize()
 {
     std::cerr << "RecencyPredictorTest::testMaxPartialPredictionSize()" << std::endl;
 
-    RecencyPredictor* predictor = new RecencyPredictor(config, ct);
+    RecencyPredictor* predictor = new RecencyPredictor(config, ct, NAME);
 
     *stream << "foo foobar foobaz foo";
 
@@ -96,21 +100,21 @@ void RecencyPredictorTest::testCutoffThreshold()
     {
 	config->insert (CUTOFF, "0");
 	Prediction expected;
-	RecencyPredictor predictor(config, ct);
+	RecencyPredictor predictor(config, ct, NAME);
 	CPPUNIT_ASSERT_EQUAL(expected, predictor.predict(SIZE, 0));
     }
 
     {
 	config->insert (CUTOFF, "1");
 	Prediction expected;
-	RecencyPredictor predictor(config, ct);
+	RecencyPredictor predictor(config, ct, NAME);
 	CPPUNIT_ASSERT_EQUAL(expected, predictor.predict(SIZE, 0));
     }
 
     {
 	config->insert (CUTOFF, "2");
 	Prediction expected;
-	RecencyPredictor predictor(config, ct);
+	RecencyPredictor predictor(config, ct, NAME);
 	expected.addSuggestion(Suggestion("foobar", 1.0 * exp(-1.0 * 1))); // foobar is second token (offset 1)
 	CPPUNIT_ASSERT_EQUAL(expected, predictor.predict(SIZE, 0));
     }
@@ -118,7 +122,7 @@ void RecencyPredictorTest::testCutoffThreshold()
     {
 	config->insert (CUTOFF, "3");
 	Prediction expected;
-	RecencyPredictor predictor(config, ct);
+	RecencyPredictor predictor(config, ct, NAME);
 	expected.addSuggestion(Suggestion("foobar", 1.0 * exp(-1.0 * 1))); // foobar is second token (offset 1)
 	CPPUNIT_ASSERT_EQUAL(expected, predictor.predict(SIZE, 0));
     }
@@ -126,10 +130,58 @@ void RecencyPredictorTest::testCutoffThreshold()
     {
 	config->insert (CUTOFF, "4");
 	Prediction expected;
-	RecencyPredictor predictor(config, ct);
+	RecencyPredictor predictor(config, ct, NAME);
 	expected.addSuggestion(Suggestion("foobar", 1.0 * exp(-1.0 * 1))); // foobar is second token (offset 1)
 	expected.addSuggestion(Suggestion("foo",    1.0 * exp(-1.0 * 3))); // skip bar, foo is fourth token (offset 3)
 	CPPUNIT_ASSERT_EQUAL(expected, predictor.predict(SIZE, 0));
+    }
+
+}
+void RecencyPredictorTest::testFilter()
+{
+    std::cerr << "RecencyPredictorTest::testFilter()" << std::endl;
+
+    *stream << "foo bar foobar baz f";
+
+    {
+	const char* filter[] = {"oob", 0};
+
+	Prediction expected;
+	expected.addSuggestion(Suggestion("foobar", 1.0 * exp(-1.0 * 1))); // foobar is second token (offset 1)
+
+	RecencyPredictor predictor(config, ct, NAME);
+	CPPUNIT_ASSERT_EQUAL(expected, predictor.predict(SIZE, filter));
+    }
+
+    {
+	const char* filter[] = {"oo", 0};
+
+	Prediction expected;
+	expected.addSuggestion(Suggestion("foobar", 1.0 * exp(-1.0 * 1))); // foobar is second token (offset 1)
+	expected.addSuggestion(Suggestion("foo",    1.0 * exp(-1.0 * 3))); // skip bar, foo is fourth token (offset 3)
+
+	RecencyPredictor predictor(config, ct, NAME);
+	CPPUNIT_ASSERT_EQUAL(expected, predictor.predict(SIZE, filter));
+    }
+
+    {
+	const char* filter[] = {"ar", 0};
+
+	Prediction expected;
+
+	RecencyPredictor predictor(config, ct, NAME);
+	CPPUNIT_ASSERT_EQUAL(expected, predictor.predict(SIZE, filter));
+    }
+
+    {
+	const char** filter = 0;
+
+	Prediction expected;
+	expected.addSuggestion(Suggestion("foobar", 1.0 * exp(-1.0 * 1))); // foobar is second token (offset 1)
+	expected.addSuggestion(Suggestion("foo",    1.0 * exp(-1.0 * 3))); // skip bar, foo is fourth token (offset 3)
+
+	RecencyPredictor predictor(config, ct, NAME);
+	CPPUNIT_ASSERT_EQUAL(expected, predictor.predict(SIZE, filter));
     }
 
 }

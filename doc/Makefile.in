@@ -181,6 +181,7 @@ STRIP = @STRIP@
 SWIG = @SWIG@
 TEXT2IDNGRAM = @TEXT2IDNGRAM@
 TEXT2WFREQ = @TEXT2WFREQ@
+UNIX2DOS = @UNIX2DOS@
 VERSION = @VERSION@
 WFREQ2VOCAB = @WFREQ2VOCAB@
 abs_builddir = @abs_builddir@
@@ -388,6 +389,7 @@ maintainer-clean-generic:
 @HAVE_DOXYGEN_FALSE@distclean-local:
 @BUILD_DOCUMENTATION_FALSE@install-data-local:
 @HAVE_DOXYGEN_FALSE@install-data-local:
+@HAVE_UNIX2DOS_FALSE@install-data-hook:
 clean: clean-am
 
 clean-am: clean-generic clean-libtool mostlyclean-am
@@ -409,7 +411,8 @@ info: info-am
 info-am:
 
 install-data-am: install-data-local install-dist_pkgdataDATA
-
+	@$(NORMAL_INSTALL)
+	$(MAKE) $(AM_MAKEFLAGS) install-data-hook
 install-dvi: install-dvi-am
 
 install-dvi-am:
@@ -454,22 +457,32 @@ ps-am:
 
 uninstall-am: uninstall-dist_pkgdataDATA uninstall-local
 
-.MAKE: install-am install-strip
+.MAKE: install-am install-data-am install-strip
 
 .PHONY: all all-am all-local check check-am clean clean-generic \
 	clean-libtool distclean distclean-generic distclean-libtool \
 	distclean-local distdir dvi dvi-am html html-am info info-am \
 	install install-am install-data install-data-am \
-	install-data-local install-dist_pkgdataDATA install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am install-man \
-	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip installcheck installcheck-am installdirs \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
-	uninstall uninstall-am uninstall-dist_pkgdataDATA \
+	install-data-hook install-data-local install-dist_pkgdataDATA \
+	install-dvi install-dvi-am install-exec install-exec-am \
+	install-html install-html-am install-info install-info-am \
+	install-man install-pdf install-pdf-am install-ps \
+	install-ps-am install-strip installcheck installcheck-am \
+	installdirs maintainer-clean maintainer-clean-generic \
+	mostlyclean mostlyclean-generic mostlyclean-libtool pdf pdf-am \
+	ps ps-am uninstall uninstall-am uninstall-dist_pkgdataDATA \
 	uninstall-local
 
+
+@HAVE_UNIX2DOS_TRUE@install-data-hook:
+@HAVE_UNIX2DOS_TRUE@	case `uname` in \
+@HAVE_UNIX2DOS_TRUE@	MINGW*) \
+@HAVE_UNIX2DOS_TRUE@		unix2dos $(DESTDIR)$(pkgdatadir)/getting_started.txt; \
+@HAVE_UNIX2DOS_TRUE@		unix2dos $(DESTDIR)$(pkgdatadir)/python_binding.txt; \
+@HAVE_UNIX2DOS_TRUE@		;; \
+@HAVE_UNIX2DOS_TRUE@	*) \
+@HAVE_UNIX2DOS_TRUE@		;; \
+@HAVE_UNIX2DOS_TRUE@	esac
 
 #pkgdata_DATA =	html latex
 @BUILD_DOCUMENTATION_TRUE@@HAVE_DOXYGEN_TRUE@install-data-local:

@@ -73,11 +73,14 @@ am__dbconnectorTestRunner_SOURCES_DIST = dbconnectorTestRunner.cpp \
 	databaseConnectorTest.cpp databaseConnectorTest.h \
 	sqliteDatabaseConnectorTest.cpp sqliteDatabaseConnectorTest.h \
 	$(top_srcdir)/src/lib/presageException.h \
-	$(top_srcdir)/src/lib/core/presageException.cpp
+	$(top_srcdir)/src/lib/core/presageException.cpp \
+	$(top_srcdir)/src/lib/core/utility.h \
+	$(top_srcdir)/src/lib/core/utility.cpp
 @HAVE_CPPUNIT_TRUE@@USE_SQLITE_TRUE@am_dbconnectorTestRunner_OBJECTS = dbconnectorTestRunner-dbconnectorTestRunner.$(OBJEXT) \
 @HAVE_CPPUNIT_TRUE@@USE_SQLITE_TRUE@	dbconnectorTestRunner-databaseConnectorTest.$(OBJEXT) \
 @HAVE_CPPUNIT_TRUE@@USE_SQLITE_TRUE@	dbconnectorTestRunner-sqliteDatabaseConnectorTest.$(OBJEXT) \
-@HAVE_CPPUNIT_TRUE@@USE_SQLITE_TRUE@	dbconnectorTestRunner-presageException.$(OBJEXT)
+@HAVE_CPPUNIT_TRUE@@USE_SQLITE_TRUE@	dbconnectorTestRunner-presageException.$(OBJEXT) \
+@HAVE_CPPUNIT_TRUE@@USE_SQLITE_TRUE@	dbconnectorTestRunner-utility.$(OBJEXT)
 dbconnectorTestRunner_OBJECTS = $(am_dbconnectorTestRunner_OBJECTS)
 @HAVE_CPPUNIT_TRUE@@USE_SQLITE_TRUE@dbconnectorTestRunner_DEPENDENCIES = $(top_builddir)/src/lib/predictors/dbconnector/libdbconnector.la
 dbconnectorTestRunner_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
@@ -200,6 +203,7 @@ STRIP = @STRIP@
 SWIG = @SWIG@
 TEXT2IDNGRAM = @TEXT2IDNGRAM@
 TEXT2WFREQ = @TEXT2WFREQ@
+UNIX2DOS = @UNIX2DOS@
 VERSION = @VERSION@
 WFREQ2VOCAB = @WFREQ2VOCAB@
 abs_builddir = @abs_builddir@
@@ -265,7 +269,10 @@ top_srcdir = @top_srcdir@
 @HAVE_CPPUNIT_TRUE@@USE_SQLITE_TRUE@				sqliteDatabaseConnectorTest.cpp \
 @HAVE_CPPUNIT_TRUE@@USE_SQLITE_TRUE@				sqliteDatabaseConnectorTest.h   \
 @HAVE_CPPUNIT_TRUE@@USE_SQLITE_TRUE@				$(top_srcdir)/src/lib/presageException.h	\
-@HAVE_CPPUNIT_TRUE@@USE_SQLITE_TRUE@				$(top_srcdir)/src/lib/core/presageException.cpp
+@HAVE_CPPUNIT_TRUE@@USE_SQLITE_TRUE@				$(top_srcdir)/src/lib/core/presageException.cpp \
+@HAVE_CPPUNIT_TRUE@@USE_SQLITE_TRUE@				$(top_srcdir)/src/lib/core/utility.h		\
+@HAVE_CPPUNIT_TRUE@@USE_SQLITE_TRUE@				$(top_srcdir)/src/lib/core/utility.cpp
+
 
 # presageException files are included in sources since sqlite
 # database connector defines an exception that inherits from
@@ -335,6 +342,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dbconnectorTestRunner-dbconnectorTestRunner.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dbconnectorTestRunner-presageException.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dbconnectorTestRunner-sqliteDatabaseConnectorTest.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dbconnectorTestRunner-utility.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -412,6 +420,20 @@ dbconnectorTestRunner-presageException.obj: $(top_srcdir)/src/lib/core/presageEx
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/lib/core/presageException.cpp' object='dbconnectorTestRunner-presageException.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(dbconnectorTestRunner_CPPFLAGS) $(CPPFLAGS) $(dbconnectorTestRunner_CXXFLAGS) $(CXXFLAGS) -c -o dbconnectorTestRunner-presageException.obj `if test -f '$(top_srcdir)/src/lib/core/presageException.cpp'; then $(CYGPATH_W) '$(top_srcdir)/src/lib/core/presageException.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/lib/core/presageException.cpp'; fi`
+
+dbconnectorTestRunner-utility.o: $(top_srcdir)/src/lib/core/utility.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(dbconnectorTestRunner_CPPFLAGS) $(CPPFLAGS) $(dbconnectorTestRunner_CXXFLAGS) $(CXXFLAGS) -MT dbconnectorTestRunner-utility.o -MD -MP -MF $(DEPDIR)/dbconnectorTestRunner-utility.Tpo -c -o dbconnectorTestRunner-utility.o `test -f '$(top_srcdir)/src/lib/core/utility.cpp' || echo '$(srcdir)/'`$(top_srcdir)/src/lib/core/utility.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/dbconnectorTestRunner-utility.Tpo $(DEPDIR)/dbconnectorTestRunner-utility.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/lib/core/utility.cpp' object='dbconnectorTestRunner-utility.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(dbconnectorTestRunner_CPPFLAGS) $(CPPFLAGS) $(dbconnectorTestRunner_CXXFLAGS) $(CXXFLAGS) -c -o dbconnectorTestRunner-utility.o `test -f '$(top_srcdir)/src/lib/core/utility.cpp' || echo '$(srcdir)/'`$(top_srcdir)/src/lib/core/utility.cpp
+
+dbconnectorTestRunner-utility.obj: $(top_srcdir)/src/lib/core/utility.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(dbconnectorTestRunner_CPPFLAGS) $(CPPFLAGS) $(dbconnectorTestRunner_CXXFLAGS) $(CXXFLAGS) -MT dbconnectorTestRunner-utility.obj -MD -MP -MF $(DEPDIR)/dbconnectorTestRunner-utility.Tpo -c -o dbconnectorTestRunner-utility.obj `if test -f '$(top_srcdir)/src/lib/core/utility.cpp'; then $(CYGPATH_W) '$(top_srcdir)/src/lib/core/utility.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/lib/core/utility.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/dbconnectorTestRunner-utility.Tpo $(DEPDIR)/dbconnectorTestRunner-utility.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$(top_srcdir)/src/lib/core/utility.cpp' object='dbconnectorTestRunner-utility.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(dbconnectorTestRunner_CPPFLAGS) $(CPPFLAGS) $(dbconnectorTestRunner_CXXFLAGS) $(CXXFLAGS) -c -o dbconnectorTestRunner-utility.obj `if test -f '$(top_srcdir)/src/lib/core/utility.cpp'; then $(CYGPATH_W) '$(top_srcdir)/src/lib/core/utility.cpp'; else $(CYGPATH_W) '$(srcdir)/$(top_srcdir)/src/lib/core/utility.cpp'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

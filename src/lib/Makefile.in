@@ -96,7 +96,7 @@ am__base_list = \
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 am__DEPENDENCIES_1 =
-libpresage_la_DEPENDENCIES = core/libcore.la simulator/libsimulator.la \
+libpresage_la_DEPENDENCIES = core/libcore.la \
 	predictors/libpredictors.la $(am__append_2) \
 	$(am__DEPENDENCIES_1)
 am_libpresage_la_OBJECTS = libpresage_la-presage.lo
@@ -143,7 +143,7 @@ AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \
 	distdir
 ETAGS = etags
 CTAGS = ctags
-DIST_SUBDIRS = tinyxml core simulator predictors
+DIST_SUBDIRS = tinyxml core predictors
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 am__relativize = \
   dir0=`pwd`; \
@@ -257,6 +257,7 @@ STRIP = @STRIP@
 SWIG = @SWIG@
 TEXT2IDNGRAM = @TEXT2IDNGRAM@
 TEXT2WFREQ = @TEXT2WFREQ@
+UNIX2DOS = @UNIX2DOS@
 VERSION = @VERSION@
 WFREQ2VOCAB = @WFREQ2VOCAB@
 abs_builddir = @abs_builddir@
@@ -317,7 +318,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 @BUILD_TINYXML_TRUE@MAYBE_TINYXML = tinyxml
-SUBDIRS = $(MAYBE_TINYXML) core simulator predictors
+SUBDIRS = $(MAYBE_TINYXML) core predictors
 include_HEADERS = presage.h \
 				presageException.h \
 				presageCallback.h 
@@ -329,8 +330,8 @@ libpresage_la_SOURCES = presage.cpp \
 				presageCallback.h \
 				libpresage.map
 
-libpresage_la_LIBADD = core/libcore.la simulator/libsimulator.la \
-	predictors/libpredictors.la $(am__append_2) $(am__append_3)
+libpresage_la_LIBADD = core/libcore.la predictors/libpredictors.la \
+	$(am__append_2) $(am__append_3)
 libpresage_la_LDFLAGS = -no-undefined -version-info 2:1:1 \
 	$(am__append_1)
 @BUILD_TINYXML_TRUE@libpresage_la_CPPFLAGS = -I$(top_srcdir)/src/lib/tinyxml

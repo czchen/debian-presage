@@ -46,7 +46,7 @@
  */
 class SmoothedNgramPredictor : public Predictor, public Observer {
 public:
-    SmoothedNgramPredictor(Configuration*, ContextTracker*);
+    SmoothedNgramPredictor(Configuration*, ContextTracker*, const char*);
     ~SmoothedNgramPredictor();
 
     virtual Prediction predict(const size_t size, const char** filter) const;
@@ -56,25 +56,29 @@ public:
     virtual void update (const Observable* variable);
 
 private:
-    static const char* LOGGER;
-    static const char* DBFILENAME;
-    static const char* DELTAS;
-    static const char* LEARN;
-    static const char* DATABASE_LOGGER;
+    std::string LOGGER;
+    std::string DBFILENAME;
+    std::string DELTAS;
+    std::string LEARN;
+    std::string DATABASE_LOGGER;
 
     unsigned int count(const std::vector<std::string>& tokens, int offset, int ngram_size) const;
     void check_learn_consistency(const Ngram& name) const;
 
     void set_dbfilename (const std::string& filename);
     void set_deltas (const std::string& deltas);
-    void set_database_logger_level (const std::string& value);
-    void set_learn (const std::string& deltas);
+    void set_database_logger_level (const std::string& level);
+    void set_learn (const std::string& learn_mode);
+
+    void init_database_connector_if_ready ();
 
     DatabaseConnector*  db;
     std::string         dbfilename;
     std::string         dbloglevel;
     std::vector<double> deltas;
+    size_t              cardinality; // cardinality == what is the n in n-gram?
     bool                wanna_learn;
+    bool                learn_mode_set;
 
     Dispatcher<SmoothedNgramPredictor> dispatcher;
 };

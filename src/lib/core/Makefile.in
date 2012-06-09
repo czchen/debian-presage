@@ -234,6 +234,7 @@ STRIP = @STRIP@
 SWIG = @SWIG@
 TEXT2IDNGRAM = @TEXT2IDNGRAM@
 TEXT2WFREQ = @TEXT2WFREQ@
+UNIX2DOS = @UNIX2DOS@
 VERSION = @VERSION@
 WFREQ2VOCAB = @WFREQ2VOCAB@
 abs_builddir = @abs_builddir@
@@ -345,9 +346,6 @@ libcore_la_SOURCES = \
 	progress.cpp \
 	progress.h 
 
-
-# Temporarily disabled
-#                       pluginManager.cpp pluginManager.h
 libcore_la_LIBADD = \
 	tokenizer/libtokenizer.la \
 	context_tracker/libcontexttracker.la

@@ -62,7 +62,12 @@ CPPUNIT_TEST_SUITE_REGISTRATION( SqliteDatabaseConnectorTest );
 
 void SqliteDatabaseConnectorTest::setUp()
 {
-    CPPUNIT_ASSERT_NO_THROW(sqliteDatabaseConnector = new SqliteDatabaseConnector(DEFAULT_DATABASE_FILENAME));
+    CPPUNIT_ASSERT_NO_THROW
+	(
+	    sqliteDatabaseConnector = new SqliteDatabaseConnector(DEFAULT_DATABASE_FILENAME,
+								  DEFAULT_DATABASE_CARDINALITY,
+								  DEFAULT_DATABASE_READ_WRITE_MODE)
+	);
 
     unigram = new Ngram;
     unigram->push_back("foo");
@@ -118,24 +123,15 @@ void SqliteDatabaseConnectorTest::testInsertNgram()
 {
     std::cout << "SqliteDatabaseConnectorTest::testInsertNgram()" << std::endl;
 
-    // test that no insertion occurs since tables have not been
-    // yet created and an exception is thrown
-    CPPUNIT_ASSERT_THROW(sqliteDatabaseConnector->insertNgram(*unigram, MAGIC_NUMBER),
-                         SqliteDatabaseConnector::SqliteDatabaseConnectorException);
-    CPPUNIT_ASSERT_THROW(sqliteDatabaseConnector->insertNgram(*bigram, MAGIC_NUMBER),
-                         SqliteDatabaseConnector::SqliteDatabaseConnectorException);
-    CPPUNIT_ASSERT_THROW(sqliteDatabaseConnector->insertNgram(*trigram, MAGIC_NUMBER),
-                         SqliteDatabaseConnector::SqliteDatabaseConnectorException);
-
     // populate database
-    sqliteDatabaseConnector->createNgramTable(1);
-    sqliteDatabaseConnector->insertNgram(*unigram, MAGIC_NUMBER);
+    CPPUNIT_ASSERT_NO_THROW(sqliteDatabaseConnector->insertNgram(*unigram, MAGIC_NUMBER));
+    CPPUNIT_ASSERT_NO_THROW(sqliteDatabaseConnector->insertNgram(*bigram, MAGIC_NUMBER));
+    CPPUNIT_ASSERT_NO_THROW(sqliteDatabaseConnector->insertNgram(*trigram, MAGIC_NUMBER));
 
-    sqliteDatabaseConnector->createNgramTable(2);
-    sqliteDatabaseConnector->insertNgram(*bigram, MAGIC_NUMBER);
-
-    sqliteDatabaseConnector->createNgramTable(3);
-    sqliteDatabaseConnector->insertNgram(*trigram, MAGIC_NUMBER);
+    // test no exception occurs when attempting to recreate existing tables
+    CPPUNIT_ASSERT_NO_THROW(sqliteDatabaseConnector->createNgramTable(1));
+    CPPUNIT_ASSERT_NO_THROW(sqliteDatabaseConnector->createNgramTable(2));
+    CPPUNIT_ASSERT_NO_THROW(sqliteDatabaseConnector->createNgramTable(3));
     
     // compare database dump with benchmark string
     std::stringstream benchmark;
@@ -166,15 +162,6 @@ void SqliteDatabaseConnectorTest::testInsertNgram()
 void SqliteDatabaseConnectorTest::testUpdateNgram()
 {
     std::cout << "SqliteDatabaseConnectorTest::testUpdateNgram()" << std::endl;
-
-    // test that no insertion occurs since tables have not been
-    // yet created and an exception is thrown
-    CPPUNIT_ASSERT_THROW(sqliteDatabaseConnector->updateNgram(*unigram, MAGIC_NUMBER),
-                         SqliteDatabaseConnector::SqliteDatabaseConnectorException);
-    CPPUNIT_ASSERT_THROW(sqliteDatabaseConnector->updateNgram(*bigram, MAGIC_NUMBER),
-                         SqliteDatabaseConnector::SqliteDatabaseConnectorException);
-    CPPUNIT_ASSERT_THROW(sqliteDatabaseConnector->updateNgram(*trigram, MAGIC_NUMBER),
-                         SqliteDatabaseConnector::SqliteDatabaseConnectorException);
 
     // populate database
     sqliteDatabaseConnector->createNgramTable(1);
@@ -264,31 +251,19 @@ void SqliteDatabaseConnectorTest::testIncrementNgramCount()
 {
     std::cout << "SqliteDatabaseConnectorTest::testIncrementNgramCount()" << std::endl;
 
-    // test that no insertion occurs since tables have not been
-    // yet created
-    CPPUNIT_ASSERT_THROW(sqliteDatabaseConnector->incrementNgramCount(*unigram),
-                         SqliteDatabaseConnector::SqliteDatabaseConnectorException);
-    CPPUNIT_ASSERT_THROW(sqliteDatabaseConnector->incrementNgramCount(*bigram),
-                         SqliteDatabaseConnector::SqliteDatabaseConnectorException);
-    CPPUNIT_ASSERT_THROW(sqliteDatabaseConnector->incrementNgramCount(*trigram),
-                         SqliteDatabaseConnector::SqliteDatabaseConnectorException);
-
     // populate database
-    sqliteDatabaseConnector->createNgramTable(1);
     sqliteDatabaseConnector->incrementNgramCount(*unigram);
     sqliteDatabaseConnector->incrementNgramCount(*unigram);
     sqliteDatabaseConnector->incrementNgramCount(*unigram);
 
-    sqliteDatabaseConnector->createNgramTable(2);
     sqliteDatabaseConnector->incrementNgramCount(*bigram);
     sqliteDatabaseConnector->incrementNgramCount(*bigram);
     sqliteDatabaseConnector->incrementNgramCount(*bigram);
 
-    sqliteDatabaseConnector->createNgramTable(3);
     sqliteDatabaseConnector->incrementNgramCount(*trigram);
     sqliteDatabaseConnector->incrementNgramCount(*trigram);
     sqliteDatabaseConnector->incrementNgramCount(*trigram);
-    
+
     // compare database dump with benchmark string
     std::stringstream benchmark;
     benchmark
@@ -418,6 +393,9 @@ void SqliteDatabaseConnectorTest::assertEqualNgramTable(const NgramTable* const 
 
 void SqliteDatabaseConnectorTest::assertExistsAndRemoveFile(const char* filename) const
 {
+  std::cerr << "SqliteDatabaseConnectorTest::assertExistsAndRemoveFile ("
+	    << filename << ")" << std::endl;
+
 #ifdef HAVE_DIRENT_H
     bool result = false;
     DIR* dp;
@@ -446,12 +424,13 @@ void SqliteDatabaseConnectorTest::assertExistsAndRemoveFile(const char* filename
 #ifdef HAVE_UNISTD_H
     // remove file if it exists
     if (result) {
-        result = unlink(filename);
-        assert(result == 0);
+        if (unlink(filename)) {
+            perror ("Unable to remove file");
+        }
     }
 #else
     // fail test
-    std::string message = "Unable to remove database file ";
+    std::string message = "Unable to remove file: ";
     message += filename;
     CPPUNIT_FAIL( message.c_str() );
     //exit(-1);
@@ -467,10 +446,11 @@ void SqliteDatabaseConnectorTest::assertDatabaseDumpEqualsBenchmark(std::strings
 #elif defined(HAVE_SQLITE_H)
 	static_cast<std::string>("sqlite ")
 #endif
-        + DEFAULT_DATABASE_FILENAME + " '.dump' > " + DATABASE_DUMP;
+        + DEFAULT_DATABASE_FILENAME + " \".dump\" > " + DATABASE_DUMP;
 
-    int result = system(command.c_str());
-    CPPUNIT_ASSERT(result == 0);
+    std::cout << "Executing `" << command << "'" << std::endl;
+    int command_exit_value = system(command.c_str());
+    CPPUNIT_ASSERT(command_exit_value == 0);
 
     std::ifstream database_dump_stream(DATABASE_DUMP);
 
@@ -500,12 +480,14 @@ void SqliteDatabaseConnectorTest::assertDatabaseDumpEqualsBenchmark(std::strings
         }
     }
 
+    database_dump_stream.close();
+
     // assert streams contain same characters
     std::string actual;
     std::string expected;
     bool        equal = true;;
-    while (getline(stripped_database_dump_stream, actual)
-	   && getline(benchmark, expected)) {
+    while (getline(benchmark, expected)
+	   && getline(stripped_database_dump_stream, actual)) {
         // remove " and ' from strings, because different versions of
         // sqlite insert either double quotes or single quotes or no
         // quotes at all.
@@ -521,7 +503,8 @@ void SqliteDatabaseConnectorTest::assertDatabaseDumpEqualsBenchmark(std::strings
 	
 	equal = (expected == actual);
 	    //if (!equal)
-	std::cout << "[expected} " << expected << " [actual] " << actual << std::endl;
+	std::cout << "[expected] " << expected << std::endl
+		  << "[actual  ] " << actual << std::endl;
 	CPPUNIT_ASSERT(equal);
     }
 
