@@ -1,3 +1,389 @@
+2011-06-08  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* presage-0.8.8: released.
+
+2011-06-06  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/gprompter.c: Fix compilation errors triggered
+	by hardening flags.
+
+	* test/lib/core/profileManagerTest.cpp,
+	test/lib/predictors/smoothedNgramPredictorTest.cpp: Fix
+	compilation error with GCC 4.7.
+
+2011-06-05  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* configure.ac, NEWS, website/presage_database_dump.sql.gz:
+	preparing for 0.8.8 release.
+
+2012-06-04  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src/lib/core/context_tracker/contextChangeDetector.cpp,
+	src/lib/core/context_tracker/contextTracker.*,
+	src/lib/predictors/smoothedNgramPredictor.cpp,
+	test/lib/predictors/predictorsTestMockObjects.cpp: Fix bug in
+	smoothed n-gram predictor where spurious text was learned when
+	change detected that entire past stream needed to be learnt, such
+	as when triggered by entering backspace in gprompter. Tokens from
+	past stream were incorrectly used to fill n-gram to be learned.
+
+	* apps/gtk/gprompter/gprompter.c: removed debugging printouts.
+
+2012-06-01  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* bindings/python/Makefile.am, bindigs/python/setup.py.in: Pass
+	CPPFLAGS, CXXFLAGS, LDFLAGS to python extension build/link lines.
+
+	* configure.ac, INSTALL: autoupdated autoconf files.
+
+	* test/lib/common/Makefile.am: Build common test library for make
+	check target, not make all target.
+
+	* src/lib/core/defaultProfile.cpp,
+	resources/profiles/presage.xml.template: Fix spurious compilation
+	warning.
+
+	* apps/gtk/gprompter/scintilla/*: updated to latest scintilla 3.20
+	release.
+
+2012-05-24  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* resources/profiles/presage.xml.template,
+	src/lib/core/defaultProfile.cpp: add comment to describe use of
+	$HOME variable in configuration.
+
+2012-05-22  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* configure.ac: rewrote python dbus module autoconf check to use
+	python import statement.
+
+2012-05-21  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/python/prompter/prompter.py: removed learning presage menu
+	toggle to accomodate user specific learning smoothed n-gram
+	predictor changes.
+
+2012-05-19  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src/lib/predictors/smoothedNgramPredictor.cpp: Improve smoothed
+	n-gram predictor learning performance.
+
+	* src/lib/core/profileManager.*: hange user-specific default
+	presage.xml location to ~/.presage/
+
+2012-05-17  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src/lib/core/utility.*,
+	src/lib/predictors/dbconnector/databaseConnector.cpp,
+	src/tools/Makefile.am,
+	test/lib/predictors/dbconnector/Makefile.am: Add ability to create
+	directory containing language model if it doesn't exist.
+
+	* src/lib/core/utility.cpp: Fix build issue on MinGW/MSYS.
+
+2012-05-16  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src/lib/predictors/dbconnector/databaseConnector.cpp: Add
+	support for multiple vars in configuration. Add support for
+	special ${HOME} var, it expands to both content of HOME
+	environment variable or USERPROFILE if HOME is empty.
+
+2012-05-13  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* resources/profile/presage.xml.template,
+	src/lib/core/context_tracker/contextChangeDetector.*,
+	src/lib/core/context_tracker/contextTracker.*,
+	src/lib/core/defaultProfile.cpp,
+	src/lib/predictors/smoothedNgramPredictor.cpp,
+	test/lib/core/context_tracker/contextChangeDetectorTest.cpp,
+	test/lib/core/context_tracker/contextTrackerTest.cpp,
+	test/lib/core/selectorTest.cpp,
+	test/lib/predictors/dejavuPredictorTest.cpp,
+	test/lib/predictors/newSmoothedNgramPredictorTest.cpp,
+	test/lib/predictors/recencyPredictorTest.cpp: Add
+	Presage.ContextTracker.LOWERCASE_MODE configuration variable
+
+2012-05-07  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src/lib/core/context_tracker/contextChangeDetector.cpp,
+	src/lib/core/context_tracker/contextTracker.cpp,
+	src/lib/predictors/smoothedNgramPredictor.cpp,
+	test/lib/core/context_tracker/contextChangeDetectorTest.*,
+	test/lib/predictors/smoothedNgramPredictor.cpp, TODO: Fix bug that
+	occurs when learning is enabled and spurious work is learnt. Bug
+	was discovered in gprompter and occurred when learning is enabled
+	and backspace is entered.
+
+2012-05-07  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* TODO: Add TODO items, description of bug to be fixed.
+
+	* apps/gtk/gprompter/gprompter.c: tracing printouts.
+
+2012-05-04  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src/lib/predictors/dbconnector/databaseConnector.cpp,
+	src/lib/predictors/dbconnector/databaseConnector.h,
+	src/lib/predictors/dbconnector/sqliteDatabaseConnector.cpp,
+	test/lib/predictors/dbconnector/sqliteDatabaseConnectorTest.cpp:
+	create language model database if it does not exist; initialise an
+	empty database of specified cardinality.
+
+2012-04-27  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src/lib/predictors/smoothedNgramPredictor.*,
+	src/lib/predictors/dbconnector/databaseConnector.*,
+	src/lib/predictors/dbconnector/sqliteDatabaseConnector.*,
+	src/tools/text2ngram.cpp,
+	test/lib/predictors/dbconnector/databaseConnectorTest.*,
+	test/lib/predictors/dbconnector/sqliteDatabaseConnectorTest.*,
+	test/lib/predictors/newSmoothedNgramPredictorTest.*,
+	test/lib/predictors/smoothedNgramPredictorTest.*: Add n-gram
+	cardinality and read/write mode parameters to database connector.
+
+2012-04-18  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src/lib/predictors/smoothedNgramPredictor.*: Refactor n-gram
+	cardinality.
+
+	* resources/profiles/presage.xml.template,
+	src/lib/predictors/dbconnector/databaseConnector.*,
+	src/lib/predictors/dbconnector/sqliteDatabaseConnector.*: Add user
+	specific learning smoothed ngram predictor. User specific smoothed
+	ngram predictor uses a user-specific language model stored in the
+	user's home directory. Learning mode is enabled.
+
+2012-04-11  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src/lib/predictors/dejavuPredictor.cpp,
+	test/lib/predictors/dejavuPredictorTest.cpp: add filter support to
+	dejavu predictor.
+
+2012-04-09  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* resources/profiles/presage.xml.template,
+	src/lib/core/predictorRegistry.cpp,
+	src/lib/predictors/dictionaryPredictor.cpp,
+	src/lib/predictors/dictionaryPredictor.h: add support for filters
+	to dictionary predictor.
+
+2012-04-08  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src/lib/predictors/abbreviationExpansionPredictor.cpp,
+	src/lib/predictors/abbreviationExpansionPredictor.h,
+	src/lib/predictors/predictor.cpp, src/lib/predictors/predictor.h,
+	src/lib/predictors/recencyPredictor.cpp,
+	src/lib/predictors/recencyPredictor.h,
+	test/lib/predictors/recencyPredictorTest.cpp,
+	test/lib/predictors/recencyPredictorTest.h : add support for
+	filters to predictors.
+
+	* src/lib/presage.h: fixed comments.
+
+2012-04-07  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src/lib/core/combiner.cpp: cleaned up combiner filter base class
+	implementation.
+
+2012-04-06  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* test\lib\predictors\dbconnector\sqliteDatabaseConnectorTest.cpp:
+	close database.dump file before attempting to unlink from
+	filesystem (failed on MinGW/MSYS).
+
+2012-04-02  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src/lib/tinyxml/*: upgraded to TinyXML 2.6.2.
+
+	* test\lib\predictors\dbconnector\sqliteDatabaseConnectorTest.cpp:
+	fixed test failure on MinGW/MSYS.
+
+2012-03-31  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* test/integration/integration.sh,
+	test/lib/core/predictorRegistryTest.cpp,
+	test/lib/predictors/dejavuPredictorTest.h,
+	test/lib/predictors/recencyPredictorTest.cpp,
+	test/lib/predictors/abbreviationExpansionPredictorTest.cpp,
+	test/lib/predictors/recencyPredictorTest.h,
+	test/lib/predictors/smoothedNgramPredictorTest.cpp,
+	test/lib/predictors/dejavuPredictorTest.cpp,
+	test/lib/predictors/newSmoothedNgramPredictorTest.cpp,
+	src/lib/core/defaultProfile.cpp,
+	src/lib/core/predictorRegistry.cpp, src/lib/core/defaultProfile.h,
+	src/lib/predictors/dejavuPredictor.h,
+	src/lib/predictors/ARPAPredictor.cpp,
+	src/lib/predictors/predictor.h,
+	src/lib/predictors/recencyPredictor.cpp,
+	src/lib/predictors/ARPAPredictor.h,
+	src/lib/predictors/abbreviationExpansionPredictor.cpp,
+	src/lib/predictors/dummyPredictor.cpp,
+	src/lib/predictors/recencyPredictor.h,
+	src/lib/predictors/abbreviationExpansionPredictor.h,
+	src/lib/predictors/dummyPredictor.h,
+	src/lib/predictors/dictionaryPredictor.cpp,
+	src/lib/predictors/smoothedNgramPredictor.cpp,
+	src/lib/predictors/dictionaryPredictor.h,
+	src/lib/predictors/smoothedNgramPredictor.h,
+	src/lib/predictors/dejavuPredictor.cpp,
+	src/lib/predictors/predictor.cpp,
+	resources/profiles/presage.xml.template: multiple instances of the
+	same predictor class can now be instantiated and enabled at
+	runtime through configuration.
+	Presage.PredictorRegistry.PREDICTORS controls which predictors are
+	enabled. Each predictor instance is defined as a child of
+	Presage.Predictors and has it own configuration. For example, the
+	additional flexibility allows one to enable several instances of a
+	SmoothedNgram predictors, each instance pointing at a different
+	language model.
+
+2012-03-12  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/scintilla/*: updated to latest scintilla 3.04
+	release.
+
+2012-03-09  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src/tools/Makefile.am: fixed build issue following libsimulator
+	relocation.
+
+2012-03-01  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src\lib\core\profileManager.cpp: fixed bug in accessing presage
+	registry key.
+
+2012-03-01  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* test\lib\simulator, test\lib\simulator\Makefile.am,
+	test\lib\Makefile.am, src\tools\simulator,
+	src\tools\simulator\simulator.cpp,
+	src\tools\simulator\simulator.h, src\tools\simulator\Makefile.am,
+	src\tools\Makefile.am, src\lib\simulator\simulator.cpp,
+	src\lib\simulator\simulator.h, src\lib\simulator\Makefile.am,
+	src\lib\Makefile.am, configure.ac: cleaned up and moved simulator
+	code.
+
+2012-02-29  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src\lib\presage.cpp, src\lib\core\predictorActivator.h,
+	src\lib\core\predictorRegistry.cpp, src\lib\core\variable.cpp,
+	src\lib\core\pluginManager.h, src\lib\core\predictorActivator.cpp,
+	src\lib\core\selector.cpp, src\lib\core\Makefile.am,
+	src\lib\core\pluginManager.cpp,
+	src\lib\predictors\ARPAPredictor.cpp,
+	src\lib\predictors\predictor.h: cleaned up sources.
+
+2012-02-23  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src\libcore\profileManager.cpp: fixed HKEY leak.
+
+2012-02-19  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps\notepad++\PluginDefinition.cpp,
+	apps\notepad++\PresageUplink.cpp, apps\notepad++\PresageUplink.h:
+	reindenting, changes to plugin unloading logic.
+
+2012-02-13  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps\notepad++\PluginDefinition.cpp, apps\notepad++\README:
+	added build instructions and additional debug messages.
+
+2012-02-11  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps\notepad++\NppPresage.cpp,
+	apps\notepad++\PluginDefinition.cpp,
+	apps\notepad++\PresageUplink.cpp: fixes to Notepad++ plugin.
+
+2012-02-10  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* packaging\windows\win-buildpackage.sh,
+	packaging\windows\presage_installer.nsi, packaging\windows\README:
+	package qprompter in Windows installer.
+
+2012-01-29  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/scintilla/*: updated to latest scintilla 3.03
+	release.
+
+2012-01-25  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* packaging\windows\presage_installer.nsi: unchecked final page
+	checkboxes and added show getting started checkbox option.
+
+	* configure.ac, doc\Makefile.am: convert text files to DOS line
+	endings when installing on MINGW.
+
+2012-01-11  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* packaging\windows\win-buildpackage.sh, packaging\windows\README:
+	updated windows packaging scripts.
+
+2011-12-28  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/scintilla/*: updated to latest scintilla 3.02
+	release.
+
+2011-12-27  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* doc/INSTALL_MinGW_MSYS_dev_env.txt: updated build instructions.
+
+2011-11-15  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/scintilla/*: updated to latest scintilla 3.01
+	release.
+
+2011-11-12  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/scintilla/*: updated to latest scintilla 3.00
+	release.
+
+2011-11-08  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/qt/qprompter/mainwindow.*: added undo, redo, selectall
+	items to edit menu.
+
+2011-11-07  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/qt/qprompter/mainwindow.*: added and implemented view menu.
+
+2011-11-06  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/qt/qprompter/mainwindow.*: fixed qprompter build issue on
+	slightly older qscintilla on Linux.
+
+2011-11-05  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps\qt\qprompter\mainwindow.*: show prediction on whenever
+	scintilla ui is updated, added autopunctuation feature.
+
+2011-11-04  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps\qt\qprompter\mainwindow.h,
+	apps\qt\qprompter\mainwindow.cpp: handle function key
+	autocompletion selection.
+
+2011-11-02  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps\qt\qprompter\application.qrc: added resource file.
+
+	* apps\qt\qprompter\mainwindow.cpp: added initial function key to
+	autocompletion prediction.
+
+2011-10-31  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* qt, qt/qprompter, qt/qprompter/application.pro,
+	qt/qprompter/images, qt/qprompter/images/copy.png,
+	qt/qprompter/images/cut.png, qt/qprompter/images/new.png,
+	qt/qprompter/images/open.png, qt/qprompter/images/paste.png,
+	qt/qprompter/images/save.png, qt/qprompter/main.cpp,
+	qt/qprompter/mainwindow.cpp, qt/qprompter/mainwindow.h: initial
+	commit of qprompter.
+
+2011-10-26  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/gprompter.c,
+	apps/notepad++/PluginDefinition.cpp: fixed memory allocation bug.
+
 2011-10-13  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
 
 	* presage-0.8.7: released.

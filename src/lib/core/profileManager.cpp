@@ -126,7 +126,7 @@ void ProfileManager::init_profiles (const std::string& profilename)
     // installation config directory
     profiles.push_back (static_cast<std::string>(sysconfdir) + '/' + DefaultProfile::DEFAULT_PROFILE_FILENAME);
     // home dir dotfile
-    profiles.push_back (get_user_home_dir() + '/' + '.' + DefaultProfile::DEFAULT_PROFILE_FILENAME);
+    profiles.push_back (get_user_home_dir() + "/.presage/" + DefaultProfile::DEFAULT_PROFILE_FILENAME);
     // user specified profile (if any)
     if (! profilename.empty()) {
         profiles.push_back(profilename);
@@ -160,39 +160,37 @@ std::string ProfileManager::get_system_etc_dir() const
      HKEY reg_key = NULL;
      char *dst = NULL;
 
-     res = RegOpenKeyExA (HKEY_CURRENT_USER, "Software", 0,
+     res = RegOpenKeyExA (HKEY_CURRENT_USER, "Software\\Presage", 0,
 			  KEY_READ, &reg_key);
 
-     if (res == ERROR_SUCCESS) {
-	  res = RegOpenKeyExA (reg_key, "Presage", 0,
-			       KEY_READ, &reg_key);
+     if (res == ERROR_SUCCESS) 
+     {
+	 size = 64;
+	 dst = (char*) malloc (size);
+	 
+	 res = RegQueryValueExA (reg_key, "", 0, &type,
+				 (LPBYTE) dst, &size);
+	 if (res == ERROR_MORE_DATA && type == REG_SZ) {
+	     dst = (char*) realloc (dst, size);
+	     res = RegQueryValueExA (reg_key, "", 0, &type,
+				     (LPBYTE) dst, &size);
+	 }
+	 
+	 if (type != REG_SZ || res != ERROR_SUCCESS) 
+	 {
+	     result = ".";
+	 }
+	 else
+	 {
+	     result = dst;
+	     result += "\\etc";
+	 }
+
+	 free (dst);
+	 dst = 0;
+	 RegCloseKey (reg_key);
      }
 
-     if (res != ERROR_SUCCESS) {
-	  reg_key = (HKEY) INVALID_HANDLE_VALUE;
-	  return ".";
-     }
-  
-
-     size = 64;
-     dst = (char*) malloc (size);
-  
-     res = RegQueryValueExA (reg_key, "", 0, &type,
-			     (LPBYTE) dst, &size);
-     if (res == ERROR_MORE_DATA && type == REG_SZ) {
-	  dst = (char*) realloc (dst, size);
-	  res = RegQueryValueExA (reg_key, "", 0, &type,
-				  (LPBYTE) dst, &size);
-     }
-  
-     if (type != REG_SZ || res != ERROR_SUCCESS) {
-	  free (dst);
-	  dst = 0;
-     }
-
-     result = dst;
-     result += "\\etc";
-     free (dst);
 #else
      result = "/etc";
 #endif

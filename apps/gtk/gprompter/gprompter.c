@@ -62,13 +62,20 @@ static const char* get_past_stream (void* scintilla)
 					      0,
 					      0);
 
-    free (range.lpstrText);
+    free (range.lpstrText);  // safe to free on first call, static struct members init'ed to zero
     range.lpstrText = (char*) malloc (range.chrg.cpMax - range.chrg.cpMin + 1);
+    /*
+    g_print("malloc'ing block of size: %d\n", range.chrg.cpMax - range.chrg.cpMin + 1);
+    */
 
     scintilla_send_message(sci,
 			   SCI_GETTEXTRANGE,
 			   0,
 			   (sptr_t) &range);
+
+    /*
+    g_print("get_past_stream(): %s\n", range.lpstrText);
+    */
 	
     return range.lpstrText;
 }
@@ -81,16 +88,26 @@ static const char* get_future_stream (void* scintilla)
 					      SCI_GETCURRENTPOS,
 					      0,
 					      0);
-    range.chrg.cpMax = -1;
+    range.chrg.cpMax = scintilla_send_message(sci,
+					      SCI_GETTEXTLENGTH,
+					      0,
+					      0);
 
-    free (range.lpstrText);
+    free (range.lpstrText);  // safe to free on first call, static struct members init'ed to zero
     range.lpstrText = (char*) malloc (range.chrg.cpMax - range.chrg.cpMin + 1);
+    /*
+    g_print("malloc'ing block of size: %d\n", range.chrg.cpMax - range.chrg.cpMin + 1);
+    */
 
     scintilla_send_message(sci,
 			   SCI_GETTEXTRANGE,
 			   0,
 			   (sptr_t) &range);
-	
+
+    /*
+    g_print("get_future_stream(): %s\n", range.lpstrText);
+    */
+
     return range.lpstrText;
 }
 
@@ -507,6 +524,7 @@ static void show_error_dialog( const char* message )
 				     GTK_DIALOG_DESTROY_WITH_PARENT,
 				     GTK_MESSAGE_ERROR,
 				     GTK_BUTTONS_CLOSE,
+				     "%s",
 				     message);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);

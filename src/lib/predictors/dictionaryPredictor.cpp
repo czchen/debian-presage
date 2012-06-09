@@ -26,19 +26,20 @@
 
 #include <assert.h>
 
-const char* DictionaryPredictor::LOGGER  = "Presage.Predictors.DictionaryPredictor.LOGGER";
-const char* DictionaryPredictor::DICTIONARY  = "Presage.Predictors.DictionaryPredictor.DICTIONARY";
-const char* DictionaryPredictor::PROBABILITY = "Presage.Predictors.DictionaryPredictor.PROBABILITY";
 
-DictionaryPredictor::DictionaryPredictor(Configuration* config, ContextTracker* ht)
+DictionaryPredictor::DictionaryPredictor (Configuration* config, ContextTracker* ht, const char* name)
     : Predictor(config,
 	     ht,
-	     "DictionaryPredictor",
+	     name,
 	     "DictionaryPredictor, dictionary lookup",
 	     "DictionaryPredictor, a dictionary based predictor that generates a prediction by extracting tokens that start with the current prefix from a given dictionary"
 	     ),
       dispatcher (this)
 {
+    LOGGER      = PREDICTORS + name + ".LOGGER";
+    DICTIONARY  = PREDICTORS + name + ".DICTIONARY";
+    PROBABILITY = PREDICTORS + name + ".PROBABILITY";
+
     // build notification dispatch map
     dispatcher.map (config->find (LOGGER), & DictionaryPredictor::set_logger);
     dispatcher.map (config->find (DICTIONARY), & DictionaryPredictor::set_dictionary);
@@ -79,10 +80,15 @@ Prediction DictionaryPredictor::predict(const size_t max_partial_predictions_siz
     // scan file entries until we get enough suggestions
     unsigned int count = 0;
     while(dictionary_file >> candidate && count < max_partial_predictions_size) {
-	if(candidate.find(prefix) == 0) {
-	    result.addSuggestion(Suggestion(candidate,probability));
-	    count++;
+	if(candidate.find(prefix) == 0) {  // candidate starts with prefix
 	    logger << NOTICE << "Found valid token: " << candidate << endl;
+	    if (token_satisfies_filter (candidate, prefix, filter)) {
+		logger << NOTICE << "Filter check satisfied by token: " << candidate << endl;
+		result.addSuggestion(Suggestion(candidate,probability));
+		count++;
+	    } else {
+		logger << NOTICE << "Filter check failed, discarding token: " << candidate << endl;
+	    }
 	} else {
 	    logger << INFO << "Discarding invalid token: " << candidate << endl;
 	}
