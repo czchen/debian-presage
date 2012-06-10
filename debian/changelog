@@ -1,8 +1,10 @@
-presage (0.8.7-4) unstable; urgency=low
+presage (0.8.8-1) unstable; urgency=low
 
+  * New upstream release.
   * Enable build hardening.
+  * Detect dbus-python via Python. Closes: #673860
 
- -- Matteo Vescovi <matteo.vescovi@yahoo.co.uk>  Thu, 31 May 2012 18:51:31 +0100
+ -- Matteo Vescovi <matteo.vescovi@yahoo.co.uk>  Wed, 06 Jun 2012 20:58:31 +0100
 
 presage (0.8.7-3) unstable; urgency=medium
 

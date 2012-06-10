@@ -13,15 +13,12 @@ Build-Depends: debhelper (>= 7.0.50~),
  python-all-dev (>= 2.6.6-3~),
  swig2.0 (>= 2.0.4),
  libgtk2.0-dev (>= 2.12),
- python-dbus,
- autoconf,
- automake,
- libtool
+ python-dbus
 Build-Depends-Indep: doxygen, graphviz
 Standards-Version: 3.9.3
 Homepage: http://presage.sourceforge.net/
-Vcs-Svn: https://presage.svn.sourceforge.net/svnroot/presage/trunk/packaging/debian/presage/trunk
-Vcs-Browser: http://presage.svn.sourceforge.net/viewvc/presage/trunk/packaging/debian/presage/trunk
+Vcs-Git: git://presage.git.sourceforge.net/gitroot/presage/presage
+Vcs-Browser: http://presage.git.sourceforge.net/git/gitweb-index.cgi
 
 Package: presage
 Section: misc

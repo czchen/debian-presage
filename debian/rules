@@ -11,7 +11,6 @@ PYVERS=$(shell pyversions -vs)
 # Enable build hardening
 #
 override_dh_auto_configure:
-	autoreconf
 	dh_auto_configure -- $(shell dpkg-buildflags --export=configure)
 
 # Ensure dbus python build is cleaned out
