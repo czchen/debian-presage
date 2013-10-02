@@ -3,6 +3,7 @@ presage (0.8.9-1) unstable; urgency=low
   * New upstream release.
   * Fix FTBFS caused by changes in GTK and Glibc. Closes: #713617
   * Fix out-of-date-standards-version lintian warning.
+  * Added missing build dependency.
 
  -- Matteo Vescovi <matteo.vescovi@yahoo.co.uk>  Wed, 02 OCt 2013 18:23:01 +0100
 

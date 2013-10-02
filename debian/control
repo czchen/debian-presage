@@ -13,7 +13,8 @@ Build-Depends: debhelper (>= 7.0.50~),
  python-all-dev (>= 2.6.6-3~),
  swig2.0 (>= 2.0.4),
  libgtk2.0-dev (>= 2.12),
- python-dbus
+ python-dbus,
+ python-wxgtk2.8
 Build-Depends-Indep: doxygen, graphviz
 Standards-Version: 3.9.4
 Homepage: http://presage.sourceforge.net/
