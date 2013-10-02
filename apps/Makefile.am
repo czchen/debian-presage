@@ -24,4 +24,5 @@
 SUBDIRS = \
 	gtk \
 	python \
-	dbus
+	dbus \
+	notepad++

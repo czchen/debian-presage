@@ -1,8 +1,152 @@
-2011-06-08  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+2013-08-17  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* configure.ac, NEWS, website/presage_database_dump.sql.gz:
+	preparing for 0.8.9 release.
+
+2013-08-14  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/notepad++/Scintilla.h: update to latest 3.3.4.
+
+	* apps/gtk/gprompter/gprompter.c,
+	apps/notepad++/PluginDefinition.cpp: set custom order in user
+	completion list.
+
+2013-08-14  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/dbus/Makefile.am: fix automake dependency for dbus service.
+
+	* configure.ac: fix python autoconf checks.
+
+2013-08-08  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* packaging/windows/README, packaging/windows/ReplaceInFile.nsh,
+	packaging/windows/presage_installer.nsi: enhanced Windows
+	installer install and uninstall code to specify each file and
+	directory to install/uninstall (except lib/site-packages).
+
+2013-07-21  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/scintilla/*: Update to latest scintilla 3.34
+	release.
+
+2013-07-12  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/Makefile.am: add missing -lm link dependency.
+
+	* test/integration/Makefile.am: fix test environment bug.
+
+	* test/lib/predictors/newSmoothedNgramPredictorTest.cpp: fix test
+	bug occuring when running parallel make check.
+
+2013-07-11  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/scintilla/*: Update to latest scintilla 3.33
+	release.
+
+2013-04-24  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/scintilla/*: Update to latest scintilla 3.31
+	release.
+
+2013-02-08  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/notepad++/PluginDefinition.cpp: Include build timestamp in
+	about box.
+
+	* packaging/windows/presage_installer.nsi: Windows installer
+	detects and offers choice to uninstall previous presage
+	installation.
+
+	* bindings/c/presage_c_demo.c: Use correct printf specifier for
+	size_t.
+
+2013-01-27  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/scintilla/*: Update to latest scintilla 3.24
+	release.
+
+2013-01-27  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* configure.ac: Use AM_PROG_AR if automake understands it.
+
+	* apps/notepad++/PluginDefinition.cpp: Fix Notepad++ plugin learn
+	mode toggle.
+
+2013-01-26  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/gprompter.c: Use scintilla UTF8 codepage
+	encoding on all platforms (Win32 GTK included).
+
+	* src/lib/core/predictorRegistry.cpp: Make log message (slightly)
+	more informative.
+
+2012-12-18  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/notepad++/PluginDefinition.cpp: fix build failure with
+	Visual Studio 2010, remove debugging MessageBox() calls.
+
+	* src/lib/core/profileManager.cpp: fix build failure with g++ 4.6.
+
+2012-12-17  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/gprompter.c,
+	apps/notepad++/PluginDefinition.cpp,
+	apps/qt/qprompter/mainwindow.cpp, src/lib/core/profileManager.cpp,
+	src/lib/presage.cpp: fix issues uncovered with cppcheck and
+	reported by Hugh Sasse.
+
+2012-11-09  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/scintilla/*: updated to latest scintilla 3.23
+	release.
+
+2012-07-18  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/notepad++/Makefile.am, apps/Makefile.am, configure.ac:
+	package notepad++ plugin sources.
+
+2012-06-27  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/Makefile.am, configure.ac: link in gmodule
+	libs in gprompter.
+
+2012-06-16  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* configure.ac: Fix pyprompter checks.
+
+2012-06-12  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/python/Makefile.am, configure.ac: Add checks for python
+	modules required for pyprompter.
+
+	* test/lib/core/context_tracker/contextChangeDetectorTest.cpp,
+	test/lib/core/context_tracker/contextTrackerTest.cpp,
+	test/lib/core/predictorRegistryTest.cpp,
+	test/lib/core/profileManagerTest.cpp,
+	test/lib/core/profileTest.cpp, test/lib/core/selectorTest.cpp,
+	test/lib/core/tokenizer/crossCheckTokenizerTest.cpp,
+	test/lib/core/tokenizer/reverseTokenizerTest.cpp,
+	test/lib/core/variableTest.cpp,
+	test/lib/predictors/abbreviationExpansionPredictorTest.cpp,
+	test/lib/predictors/dbconnector/databaseConnectorTest.cpp,
+	test/lib/predictors/dbconnector/databaseConnectorTest.h,
+	test/lib/predictors/dbconnector/sqliteDatabaseConnectorTest.cpp,
+	test/lib/predictors/dejavuPredictorTest.cpp,
+	test/lib/predictors/newSmoothedNgramPredictorTest.cpp,
+	test/lib/predictors/recencyPredictorTest.cpp,
+	test/lib/predictors/smoothedNgramPredictorTest.cpp: Make check
+	target quiet.
+
+2012-06-11  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/python/Makefile.am, configure.ac: Add checks for python
+	modules required for pypresagemate.
+
+2012-06-08  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
 
 	* presage-0.8.8: released.
 
-2011-06-06  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+2012-06-06  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
 
 	* apps/gtk/gprompter/gprompter.c: Fix compilation errors triggered
 	by hardening flags.
@@ -11,7 +155,7 @@
 	test/lib/predictors/smoothedNgramPredictorTest.cpp: Fix
 	compilation error with GCC 4.7.
 
-2011-06-05  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+2012-06-05  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
 
 	* configure.ac, NEWS, website/presage_database_dump.sql.gz:
 	preparing for 0.8.8 release.

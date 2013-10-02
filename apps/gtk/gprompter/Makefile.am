@@ -79,13 +79,17 @@ scintilla/src/Selection.h \
 scintilla/src/SplitVector.h \
 scintilla/src/Style.cxx \
 scintilla/src/Style.h \
-scintilla/src/SVector.h \
 scintilla/src/UniConversion.cxx \
 scintilla/src/UniConversion.h \
 scintilla/src/ViewStyle.cxx \
 scintilla/src/ViewStyle.h \
 scintilla/src/XPM.cxx \
-scintilla/src/XPM.h
+scintilla/src/XPM.h \
+scintilla/src/CaseConvert.cxx \
+scintilla/src/CaseConvert.h \
+scintilla/src/CaseFolder.cxx \
+scintilla/src/CaseFolder.h \
+scintilla/src/UnicodeFromUTF8.h 
 
 SCINTILLA_INCLUDE = \
 scintilla/include/ILexer.h \
@@ -115,7 +119,10 @@ scintilla/lexlib/CharacterSet.cxx \
 scintilla/lexlib/OptionSet.h \
 scintilla/lexlib/LexerModule.h \
 scintilla/lexlib/LexerBase.cxx \
-scintilla/lexlib/SparseState.h 
+scintilla/lexlib/SparseState.h \
+scintilla/lexlib/SubStyles.h \
+scintilla/lexlib/CharacterCategory.h \
+scintilla/lexlib/CharacterCategory.cxx 
 
 SCINTILLA_LEXERS = \
 scintilla/lexers/LexLisp.cxx \
@@ -204,7 +211,10 @@ scintilla/lexers/LexAVS.cxx \
 scintilla/lexers/LexTCMD.cxx \
 scintilla/lexers/LexECL.cxx \
 scintilla/lexers/LexOScript.cxx \
-scintilla/lexers/LexVisualProlog.cxx
+scintilla/lexers/LexVisualProlog.cxx \
+scintilla/lexers/LexPO.cxx \
+scintilla/lexers/LexLaTeX.cxx \
+scintilla/lexers/LexSTTXT.cxx 
 
 
 libscintilla_la_SOURCES =	$(SCINTILLA_SRC) $(SCINTILLA_GTK) $(SCINTILLA_INCLUDE) $(SCINTILLA_LEXERS) $(SCINTILLA_LEXLIB)
@@ -225,10 +235,11 @@ EXTRA_DIST = scintilla/License.txt scintilla/version.txt
 bin_PROGRAMS =		gprompter
 
 gprompter_SOURCES = 	gprompter.c
-gprompter_CFLAGS =	$(GNOME_CFLAGS) $(GTHREAD_CFLAGS) \
+gprompter_CFLAGS =	$(GNOME_CFLAGS) $(GTHREAD_CFLAGS) $(GMODULE_CFLAGS) \
 			-I$(top_srcdir)/src/lib \
 			-I$(srcdir)/scintilla/include 
-gprompter_LDADD = 	$(GNOME_LIBS) $(GTHREAD_LIBS) \
+gprompter_LDADD = 	$(GNOME_LIBS) $(GTHREAD_LIBS) $(GMODULE_LIBS) \
+			-lm \
 			../../../src/lib/libpresage.la \
 			libscintilla.la
 if USE_GCC
