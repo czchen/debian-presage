@@ -31,7 +31,7 @@
 
 CPPUNIT_TEST_SUITE_REGISTRATION( NewSmoothedNgramPredictorTest );
 
-const char*  NewSmoothedNgramPredictorTest::DATABASE = "database.db";
+const char*  NewSmoothedNgramPredictorTest::DATABASE = "new_database.db";
 const size_t NewSmoothedNgramPredictorTest::CARDINALITY = 3;
 const bool   NewSmoothedNgramPredictorTest::READ_WRITE_MODE = true;
 
@@ -49,7 +49,7 @@ void NewSmoothedNgramPredictorTest::setUp()
 
     config = new Configuration();
     // set context tracker config variables
-    config->insert ("Presage.ContextTracker.LOGGER", "ALL");
+    config->insert ("Presage.ContextTracker.LOGGER", "ERROR");
     config->insert ("Presage.ContextTracker.SLIDING_WINDOW_SIZE", "80");
     config->insert ("Presage.ContextTracker.LOWERCASE_MODE", "no");
     // set predictor registry config variables
@@ -57,7 +57,7 @@ void NewSmoothedNgramPredictorTest::setUp()
     config->insert ("Presage.PredictorRegistry.PREDICTORS", "SmoothedNgramPredictor");
     // set predictor config variables
     config->insert ("Presage.Predictors.SmoothedNgramPredictor.PREDICTOR", "SmoothedNgramPredictor");
-    config->insert ("Presage.Predictors.SmoothedNgramPredictor.LOGGER", "ALL");
+    config->insert ("Presage.Predictors.SmoothedNgramPredictor.LOGGER", "ERROR");
     config->insert ("Presage.Predictors.SmoothedNgramPredictor.DELTAS", "0.001 0.01 0.889");
     config->insert ("Presage.Predictors.SmoothedNgramPredictor.DBFILENAME", DATABASE);
     config->insert ("Presage.Predictors.SmoothedNgramPredictor.LEARN", "true");

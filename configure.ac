@@ -22,7 +22,7 @@ dnl 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 dnl Process this file with autoconf to produce a configure script.
 
 
-AC_INIT([presage],[0.8.8],[matteo.vescovi@yahoo.co.uk])
+AC_INIT([presage],[0.8.9],[matteo.vescovi@yahoo.co.uk])
 AM_INIT_AUTOMAKE([-Wall -Werror])
 
 AC_CONFIG_SRCDIR([src/lib/presage.cpp])
@@ -36,6 +36,7 @@ AC_PROG_CXXCPP
 AC_PROG_CC
 AC_PROG_CPP
 AM_PROG_CC_C_O
+m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 
 AC_LANG([C++])
 
@@ -230,7 +231,7 @@ dnl =================
 AM_PATH_PYTHON([2.0],
                [],
                [AC_MSG_WARN([Python not found. Python is required to build presage python binding. Python can be obtained from http://www.python.org])])
-if test "$PYTHON"
+if test "$PYTHON" != :
 then
     python_include_path=`$PYTHON -c "import distutils.sysconfig; print distutils.sysconfig.get_python_inc();"`
     AC_CHECK_HEADERS([${python_include_path}/Python.h],
@@ -238,7 +239,7 @@ then
                      [AC_MSG_WARN([Python.h header file not found. Python development files are required to build presage python binding. Python can be obtained from http://www.python.org])],
                      [])
 fi
-AM_CONDITIONAL([HAVE_PYTHON], [test "$PYTHON" -a "x$have_python_header" = "xtrue"])
+AM_CONDITIONAL([HAVE_PYTHON], [test "$PYTHON" != : -a "x$have_python_header" = "xtrue"])
 
 
 AC_ARG_ENABLE([python-binding],
@@ -248,7 +249,7 @@ AC_ARG_ENABLE([python-binding],
               [ac_enable_python_binding=yes])
 if test "x$ac_enable_python_binding" = "xyes"
 then
-    if test ! "$SWIG" -o ! "$PYTHON" -o ! "x$have_python_header" = "xtrue"
+    if test ! "$SWIG" -o ! "$PYTHON" != : -o ! "x$have_python_header" = "xtrue"
     then
         AC_MSG_WARN([Python binding for presage cannot be built. Ensure that SWIG and Python packages are available.])
     fi
@@ -263,16 +264,116 @@ dnl ======================
 dnl Checks for dbus python
 dnl ======================
 have_dbus_python=no
-AC_MSG_CHECKING(for python dbus module)
-$PYTHON -c "import dbus" 2&>/dev/null
-if test $? -eq 0;
+if test "$PYTHON" != :
 then
-	have_dbus_python=yes
-else
-	have_dbus_python=no
+    AC_MSG_CHECKING(for python dbus module)
+    $PYTHON -c "import dbus" 2&>/dev/null
+    if test $? -eq 0;
+    then
+    	have_dbus_python=yes
+    else
+    	have_dbus_python=no
+    fi
+    AC_MSG_RESULT($have_dbus_python)
 fi
-AC_MSG_RESULT($have_dbus_python)
 AM_CONDITIONAL([HAVE_DBUS_PYTHON], [test "x$have_dbus_python" = "xyes"])
+
+
+dnl ========================
+dnl Checks for pypresagemate
+dnl ========================
+if test "$PYTHON" != :
+then
+    AC_MSG_CHECKING(for pyatspi module)
+    $PYTHON -c "import pyatspi" 2&>/dev/null
+    if test $? -eq 0;
+    then
+    	have_pyatspi=yes
+    else
+    	have_pyatspi=no
+    fi
+    AC_MSG_RESULT($have_pyatspi)
+    
+    AC_MSG_CHECKING(for python gtk module)
+    $PYTHON -c "import gtk" 2&>/dev/null
+    if test $? -eq 0;
+    then
+    	have_python_gtk=yes
+    else
+    	have_python_gtk=no
+    fi
+    AC_MSG_RESULT($have_python_gtk)
+    
+    AC_MSG_CHECKING(for python pango module)
+    $PYTHON -c "import pango" 2&>/dev/null
+    if test $? -eq 0;
+    then
+    	have_python_pango=yes
+    else
+    	have_python_pango=no
+    fi
+    AC_MSG_RESULT($have_python_pango)
+    
+    AC_MSG_CHECKING(for python Xlib module)
+    $PYTHON -c "import Xlib" 2&>/dev/null
+    if test $? -eq 0;
+    then
+    	have_python_Xlib=yes
+    else
+    	have_python_Xlib=no
+    fi
+    AC_MSG_RESULT($have_python_Xlib)
+fi
+
+if test "$PYTHON" != : -a \
+        "x$have_pyatspi" = "xyes" -a \
+	"x$have_python_gtk" = "xyes" -a \
+	"x$have_python_pango" = "xyes" -a \
+	"x$have_python_Xlib" = "xyes"
+then
+	enable_pypresagemate=yes
+else
+	enable_pypresagemate=no
+fi
+AM_CONDITIONAL([ENABLE_PYPRESAGEMATE], [test "x$enable_pypresagemate" = "xyes"])
+
+
+dnl =====================
+dnl Checks for pyprompter
+dnl =====================
+if test "$PYTHON" != :
+then
+    AC_MSG_CHECKING(for python wx module)
+    $PYTHON -c "import wx" 2&>/dev/null
+    if test $? -eq 0;
+    then
+    	have_python_wx=yes
+    else
+    	have_python_wx=no
+    fi
+    AC_MSG_RESULT($have_python_wx)
+    
+    
+    AC_MSG_CHECKING(for python wx.stc module)
+    $PYTHON -c "import wx.stc" 2&>/dev/null
+    if test $? -eq 0;
+    then
+    	have_python_wx_stc=yes
+    else
+    	have_python_wx_stc=no
+    fi
+    AC_MSG_RESULT($have_python_wx_stc)
+fi
+
+if test "$PYTHON" != : -a \
+	"x$have_python_wx" = "xyes" -a \
+	"x$have_python_wx_stc" = "xyes"
+then
+	enable_pyprompter=yes
+else
+	enable_pyprompter=no
+fi
+AM_CONDITIONAL([ENABLE_PYPROMPTER], [test "x$enable_pyprompter" = "xyes"])
 
 
 dnl ========================
@@ -377,6 +478,12 @@ then
 			  [have_gthread=no])
 	AC_SUBST([GTHREAD_CFLAGS])
 	AC_SUBST([GTHREAD_LIBS])
+	PKG_CHECK_MODULES([GMODULE],
+			  [gmodule-2.0],
+			  [have_gmodule=yes],
+			  [have_gmodule=no])
+	AC_SUBST([GMODULE_CFLAGS])
+	AC_SUBST([GMODULE_LIBS])
 fi
 
 if test "x$enable_gpresagemate" = "xyes" -a \
@@ -466,6 +573,7 @@ AC_CONFIG_FILES([
 	apps/dbus/Makefile
 	apps/dbus/setup.py
 	apps/dbus/presage_dbus_python_demo
+	apps/notepad++/Makefile
 	doc/Doxyfile
 	doc/Makefile
 	bindings/python/presage_python_demo
@@ -484,7 +592,7 @@ then
 else
     build_unit_tests="no"
 fi
-if test "$SWIG" -a "$PYTHON" -a "x$have_python_header" = "xtrue" -a "x$ac_enable_python_binding" = "xyes"
+if test "$SWIG" -a "$PYTHON" != : -a "x$have_python_header" = "xtrue" -a "x$ac_enable_python_binding" = "xyes"
 then
     build_python_binding="yes"
 else
@@ -515,12 +623,18 @@ AC_MSG_RESULT([
     ARPA: ....................... yes
 
 
+  Bindings:
+    C++ ......................... yes
+    C ........................... yes
+    Python ...................... ${build_python_binding}
+
   Additional applications:
 
-    wxPython prompter: .......... ${build_python_binding}
+    D-BUS presage service: ...... ${have_dbus_python}
+    wxPython pyprompter: ........ ${enable_pyprompter}
+    pypresagemate: .............. ${enable_pypresagemate}
     GTK+ presage mate: .......... ${build_gtk_presage_mate}
     GTK+ prompter: .............. ${build_gtk_prompter}
-    D-BUS presage service: ...... ${have_dbus_python}
 
 
   Additional resources:

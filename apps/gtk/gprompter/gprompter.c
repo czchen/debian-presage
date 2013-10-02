@@ -145,14 +145,26 @@ static char* stringify_prediction (char** prediction)
 		if (nchars >= function_string_len)
 		{
 		    /* realloc buffer */
-		    function_string = (char*) realloc (function_string, nchars + 1);
-		    if (function_string != NULL)
+		    char* tmp_string = (char*) realloc (function_string, nchars + 1);
+		    if (tmp_string != NULL)
 		    {
-			function_string_len = nchars + 1;
-			nchars = snprintf (function_string,
-					   function_string_len,
-					   "F%d ", i + 1);
+			function_string = tmp_string;
 		    }
+		    else
+		    {
+			/* if it cannot be reallocated, try malloc */
+			free (function_string);
+			function_string = malloc (sizeof(char) * (nchars + 1));
+			if (function_string == NULL)
+			{
+			    /* we must be running out of memory... cannot recover */
+			    return NULL;
+			}
+		    }
+		    function_string_len = nchars + 1;
+		    nchars = snprintf (function_string,
+				       function_string_len,
+				       "F%d ", i + 1);
 		}
 
 		/* realloc if necessary to write 'F\d+ ' into result */
@@ -1354,13 +1366,6 @@ int main(int argc, char **argv) {
 
    SSM(SCI_SETLEXER, SCLEX_NULL, 0);
 
-   SSM(SCI_INSERTTEXT, 0, (sptr_t)
-       "Some text to get star"
-   );
-
-   uptr_t text_length = SSM(SCI_GETTEXTLENGTH, 0, 0);
-   SSM(SCI_GOTOPOS, text_length, 0);       /* position cursor at end */
-   
    if (PRESAGE_OK == presage_config (presage, "Presage.Selector.SUGGESTIONS", &value))
    {
        uptr_t height = atoi (value);
@@ -1368,6 +1373,7 @@ int main(int argc, char **argv) {
        SSM(SCI_AUTOCSETMAXHEIGHT, height, 0);  /* set autocompletion box height */
    }
    SSM(SCI_AUTOCSETSEPARATOR, '\t', 0);    /* set autocompletion separator */
+   SSM(SCI_AUTOCSETORDER, SC_ORDER_CUSTOM, 0); /* set autocompletion order */
    SSM(SCI_SETWRAPMODE, SC_WRAP_WORD, 0);  /* set word wrapping */
    SSM(SCI_SETMARGINWIDTHN, 0, 0);         /* hide margin */
    SSM(SCI_SETMARGINWIDTHN, 1, 0);         /* hide margin */
@@ -1375,13 +1381,15 @@ int main(int argc, char **argv) {
    SSM(SCI_SETMARGINWIDTHN, 3, 0);         /* hide margin */
    SSM(SCI_SETMARGINWIDTHN, 4, 0);         /* hide margin */
 
-/* SETCODEPAGE to UTF8 produces garbled text on Win32/GTK
- */
-#ifndef _WIN32
    SSM(SCI_SETCODEPAGE, SC_CP_UTF8, 0);    /* set UTF-8 Unicode */
-#endif
 
+   SSM(SCI_INSERTTEXT, 0, (sptr_t)         /* insert some text */
+       "Some text to get star"
+   );
 
+   uptr_t text_length = SSM(SCI_GETTEXTLENGTH, 0, 0);
+   SSM(SCI_GOTOPOS, text_length, 0);       /* position cursor at end */
+   
    gtk_widget_show_all(window);
    gtk_widget_grab_focus(GTK_WIDGET(editor));
    gtk_main();

@@ -101,10 +101,12 @@ am__libscintilla_la_SOURCES_DIST = scintilla/src/AutoComplete.cxx \
 	scintilla/src/SciTE.properties scintilla/src/Selection.cxx \
 	scintilla/src/Selection.h scintilla/src/SplitVector.h \
 	scintilla/src/Style.cxx scintilla/src/Style.h \
-	scintilla/src/SVector.h scintilla/src/UniConversion.cxx \
-	scintilla/src/UniConversion.h scintilla/src/ViewStyle.cxx \
-	scintilla/src/ViewStyle.h scintilla/src/XPM.cxx \
-	scintilla/src/XPM.h scintilla/gtk/Converter.h \
+	scintilla/src/UniConversion.cxx scintilla/src/UniConversion.h \
+	scintilla/src/ViewStyle.cxx scintilla/src/ViewStyle.h \
+	scintilla/src/XPM.cxx scintilla/src/XPM.h \
+	scintilla/src/CaseConvert.cxx scintilla/src/CaseConvert.h \
+	scintilla/src/CaseFolder.cxx scintilla/src/CaseFolder.h \
+	scintilla/src/UnicodeFromUTF8.h scintilla/gtk/Converter.h \
 	scintilla/gtk/PlatGTK.cxx scintilla/gtk/ScintillaGTK.cxx \
 	scintilla/gtk/scintilla-marshal.c \
 	scintilla/gtk/scintilla-marshal.h scintilla/include/ILexer.h \
@@ -158,7 +160,8 @@ am__libscintilla_la_SOURCES_DIST = scintilla/src/AutoComplete.cxx \
 	scintilla/lexers/LexAVS.cxx scintilla/lexers/LexTCMD.cxx \
 	scintilla/lexers/LexECL.cxx scintilla/lexers/LexOScript.cxx \
 	scintilla/lexers/LexVisualProlog.cxx \
-	scintilla/lexlib/LexerSimple.h \
+	scintilla/lexers/LexPO.cxx scintilla/lexers/LexLaTeX.cxx \
+	scintilla/lexers/LexSTTXT.cxx scintilla/lexlib/LexerSimple.h \
 	scintilla/lexlib/LexerNoExceptions.cxx \
 	scintilla/lexlib/LexerModule.cxx scintilla/lexlib/Accessor.h \
 	scintilla/lexlib/LexerSimple.cxx \
@@ -172,7 +175,9 @@ am__libscintilla_la_SOURCES_DIST = scintilla/src/AutoComplete.cxx \
 	scintilla/lexlib/WordList.cxx \
 	scintilla/lexlib/CharacterSet.cxx scintilla/lexlib/OptionSet.h \
 	scintilla/lexlib/LexerModule.h scintilla/lexlib/LexerBase.cxx \
-	scintilla/lexlib/SparseState.h
+	scintilla/lexlib/SparseState.h scintilla/lexlib/SubStyles.h \
+	scintilla/lexlib/CharacterCategory.h \
+	scintilla/lexlib/CharacterCategory.cxx
 @BUILD_GTK_PROMPTER_TRUE@am__objects_1 =  \
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-AutoComplete.lo \
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-CallTip.lo \
@@ -196,7 +201,9 @@ am__libscintilla_la_SOURCES_DIST = scintilla/src/AutoComplete.cxx \
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-Style.lo \
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-UniConversion.lo \
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-ViewStyle.lo \
-@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-XPM.lo
+@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-XPM.lo \
+@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-CaseConvert.lo \
+@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-CaseFolder.lo
 @BUILD_GTK_PROMPTER_TRUE@am__objects_2 = libscintilla_la-PlatGTK.lo \
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-ScintillaGTK.lo \
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-scintilla-marshal.lo
@@ -287,7 +294,10 @@ am__objects_3 =
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexTCMD.lo \
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexECL.lo \
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexOScript.lo \
-@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexVisualProlog.lo
+@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexVisualProlog.lo \
+@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexPO.lo \
+@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexLaTeX.lo \
+@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexSTTXT.lo
 @BUILD_GTK_PROMPTER_TRUE@am__objects_5 =  \
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexerNoExceptions.lo \
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexerModule.lo \
@@ -297,7 +307,8 @@ am__objects_3 =
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-PropSetSimple.lo \
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-WordList.lo \
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-CharacterSet.lo \
-@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexerBase.lo
+@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-LexerBase.lo \
+@BUILD_GTK_PROMPTER_TRUE@	libscintilla_la-CharacterCategory.lo
 @BUILD_GTK_PROMPTER_TRUE@am_libscintilla_la_OBJECTS =  \
 @BUILD_GTK_PROMPTER_TRUE@	$(am__objects_1) $(am__objects_2) \
 @BUILD_GTK_PROMPTER_TRUE@	$(am__objects_3) $(am__objects_4) \
@@ -317,6 +328,7 @@ am__gprompter_SOURCES_DIST = gprompter.c
 @BUILD_GTK_PROMPTER_TRUE@	gprompter-gprompter.$(OBJEXT)
 gprompter_OBJECTS = $(am_gprompter_OBJECTS)
 @BUILD_GTK_PROMPTER_TRUE@gprompter_DEPENDENCIES =  \
+@BUILD_GTK_PROMPTER_TRUE@	$(am__DEPENDENCIES_1) \
 @BUILD_GTK_PROMPTER_TRUE@	$(am__DEPENDENCIES_1) \
 @BUILD_GTK_PROMPTER_TRUE@	$(am__DEPENDENCIES_1) \
 @BUILD_GTK_PROMPTER_TRUE@	../../../src/lib/libpresage.la \
@@ -412,6 +424,8 @@ ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
+GMODULE_CFLAGS = @GMODULE_CFLAGS@
+GMODULE_LIBS = @GMODULE_LIBS@
 GNOME_CFLAGS = @GNOME_CFLAGS@
 GNOME_LIBS = @GNOME_LIBS@
 GREP = @GREP@
@@ -583,13 +597,17 @@ top_srcdir = @top_srcdir@
 @BUILD_GTK_PROMPTER_TRUE@scintilla/src/SplitVector.h \
 @BUILD_GTK_PROMPTER_TRUE@scintilla/src/Style.cxx \
 @BUILD_GTK_PROMPTER_TRUE@scintilla/src/Style.h \
-@BUILD_GTK_PROMPTER_TRUE@scintilla/src/SVector.h \
 @BUILD_GTK_PROMPTER_TRUE@scintilla/src/UniConversion.cxx \
 @BUILD_GTK_PROMPTER_TRUE@scintilla/src/UniConversion.h \
 @BUILD_GTK_PROMPTER_TRUE@scintilla/src/ViewStyle.cxx \
 @BUILD_GTK_PROMPTER_TRUE@scintilla/src/ViewStyle.h \
 @BUILD_GTK_PROMPTER_TRUE@scintilla/src/XPM.cxx \
-@BUILD_GTK_PROMPTER_TRUE@scintilla/src/XPM.h
+@BUILD_GTK_PROMPTER_TRUE@scintilla/src/XPM.h \
+@BUILD_GTK_PROMPTER_TRUE@scintilla/src/CaseConvert.cxx \
+@BUILD_GTK_PROMPTER_TRUE@scintilla/src/CaseConvert.h \
+@BUILD_GTK_PROMPTER_TRUE@scintilla/src/CaseFolder.cxx \
+@BUILD_GTK_PROMPTER_TRUE@scintilla/src/CaseFolder.h \
+@BUILD_GTK_PROMPTER_TRUE@scintilla/src/UnicodeFromUTF8.h 
 
 @BUILD_GTK_PROMPTER_TRUE@SCINTILLA_INCLUDE = \
 @BUILD_GTK_PROMPTER_TRUE@scintilla/include/ILexer.h \
@@ -619,7 +637,10 @@ top_srcdir = @top_srcdir@
 @BUILD_GTK_PROMPTER_TRUE@scintilla/lexlib/OptionSet.h \
 @BUILD_GTK_PROMPTER_TRUE@scintilla/lexlib/LexerModule.h \
 @BUILD_GTK_PROMPTER_TRUE@scintilla/lexlib/LexerBase.cxx \
-@BUILD_GTK_PROMPTER_TRUE@scintilla/lexlib/SparseState.h 
+@BUILD_GTK_PROMPTER_TRUE@scintilla/lexlib/SparseState.h \
+@BUILD_GTK_PROMPTER_TRUE@scintilla/lexlib/SubStyles.h \
+@BUILD_GTK_PROMPTER_TRUE@scintilla/lexlib/CharacterCategory.h \
+@BUILD_GTK_PROMPTER_TRUE@scintilla/lexlib/CharacterCategory.cxx 
 
 @BUILD_GTK_PROMPTER_TRUE@SCINTILLA_LEXERS = \
 @BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexLisp.cxx \
@@ -708,7 +729,10 @@ top_srcdir = @top_srcdir@
 @BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexTCMD.cxx \
 @BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexECL.cxx \
 @BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexOScript.cxx \
-@BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexVisualProlog.cxx
+@BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexVisualProlog.cxx \
+@BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexPO.cxx \
+@BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexLaTeX.cxx \
+@BUILD_GTK_PROMPTER_TRUE@scintilla/lexers/LexSTTXT.cxx 
 
 @BUILD_GTK_PROMPTER_TRUE@libscintilla_la_SOURCES = $(SCINTILLA_SRC) $(SCINTILLA_GTK) $(SCINTILLA_INCLUDE) $(SCINTILLA_LEXERS) $(SCINTILLA_LEXLIB)
 @BUILD_GTK_PROMPTER_TRUE@libscintilla_la_CXXFLAGS = -DNDEBUG -DGTK -DSCI_LEXER -DG_THREADS_IMPL_NONE
@@ -722,12 +746,12 @@ top_srcdir = @top_srcdir@
 # Distribute files from here.
 @BUILD_GTK_PROMPTER_TRUE@EXTRA_DIST = scintilla/License.txt scintilla/version.txt
 @BUILD_GTK_PROMPTER_TRUE@gprompter_SOURCES = gprompter.c
-@BUILD_GTK_PROMPTER_TRUE@gprompter_CFLAGS = $(GNOME_CFLAGS) $(GTHREAD_CFLAGS) \
+@BUILD_GTK_PROMPTER_TRUE@gprompter_CFLAGS = $(GNOME_CFLAGS) $(GTHREAD_CFLAGS) $(GMODULE_CFLAGS) \
 @BUILD_GTK_PROMPTER_TRUE@			-I$(top_srcdir)/src/lib \
 @BUILD_GTK_PROMPTER_TRUE@			-I$(srcdir)/scintilla/include 
 
 @BUILD_GTK_PROMPTER_TRUE@gprompter_LDADD = $(GNOME_LIBS) \
-@BUILD_GTK_PROMPTER_TRUE@	$(GTHREAD_LIBS) \
+@BUILD_GTK_PROMPTER_TRUE@	$(GTHREAD_LIBS) $(GMODULE_LIBS) -lm \
 @BUILD_GTK_PROMPTER_TRUE@	../../../src/lib/libpresage.la \
 @BUILD_GTK_PROMPTER_TRUE@	libscintilla.la $(am__append_1)
 @BUILD_GTK_PROMPTER_TRUE@@HAVE_HELP2MAN_TRUE@dist_man_MANS = gprompter.1
@@ -840,9 +864,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-Accessor.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-AutoComplete.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-CallTip.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-CaseConvert.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-CaseFolder.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-Catalogue.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-CellBuffer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-CharClassify.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-CharacterCategory.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-CharacterSet.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-ContractionState.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-Decoration.Plo@am__quote@
@@ -889,6 +916,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexHaskell.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexInno.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexKix.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexLaTeX.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexLisp.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexLout.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexLua.Plo@am__quote@
@@ -908,6 +936,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexOthers.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexPB.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexPLM.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexPO.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexPOV.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexPS.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexPascal.Plo@am__quote@
@@ -921,6 +950,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexRuby.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexSML.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexSQL.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexSTTXT.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexScriptol.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexSmalltalk.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscintilla_la-LexSorcus.Plo@am__quote@
@@ -1183,6 +1213,20 @@ libscintilla_la-XPM.lo: scintilla/src/XPM.cxx
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='scintilla/src/XPM.cxx' object='libscintilla_la-XPM.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -c -o libscintilla_la-XPM.lo `test -f 'scintilla/src/XPM.cxx' || echo '$(srcdir)/'`scintilla/src/XPM.cxx
+
+libscintilla_la-CaseConvert.lo: scintilla/src/CaseConvert.cxx
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -MT libscintilla_la-CaseConvert.lo -MD -MP -MF $(DEPDIR)/libscintilla_la-CaseConvert.Tpo -c -o libscintilla_la-CaseConvert.lo `test -f 'scintilla/src/CaseConvert.cxx' || echo '$(srcdir)/'`scintilla/src/CaseConvert.cxx
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscintilla_la-CaseConvert.Tpo $(DEPDIR)/libscintilla_la-CaseConvert.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='scintilla/src/CaseConvert.cxx' object='libscintilla_la-CaseConvert.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -c -o libscintilla_la-CaseConvert.lo `test -f 'scintilla/src/CaseConvert.cxx' || echo '$(srcdir)/'`scintilla/src/CaseConvert.cxx
+
+libscintilla_la-CaseFolder.lo: scintilla/src/CaseFolder.cxx
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -MT libscintilla_la-CaseFolder.lo -MD -MP -MF $(DEPDIR)/libscintilla_la-CaseFolder.Tpo -c -o libscintilla_la-CaseFolder.lo `test -f 'scintilla/src/CaseFolder.cxx' || echo '$(srcdir)/'`scintilla/src/CaseFolder.cxx
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscintilla_la-CaseFolder.Tpo $(DEPDIR)/libscintilla_la-CaseFolder.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='scintilla/src/CaseFolder.cxx' object='libscintilla_la-CaseFolder.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -c -o libscintilla_la-CaseFolder.lo `test -f 'scintilla/src/CaseFolder.cxx' || echo '$(srcdir)/'`scintilla/src/CaseFolder.cxx
 
 libscintilla_la-PlatGTK.lo: scintilla/gtk/PlatGTK.cxx
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -MT libscintilla_la-PlatGTK.lo -MD -MP -MF $(DEPDIR)/libscintilla_la-PlatGTK.Tpo -c -o libscintilla_la-PlatGTK.lo `test -f 'scintilla/gtk/PlatGTK.cxx' || echo '$(srcdir)/'`scintilla/gtk/PlatGTK.cxx
@@ -1807,6 +1851,27 @@ libscintilla_la-LexVisualProlog.lo: scintilla/lexers/LexVisualProlog.cxx
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -c -o libscintilla_la-LexVisualProlog.lo `test -f 'scintilla/lexers/LexVisualProlog.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexVisualProlog.cxx
 
+libscintilla_la-LexPO.lo: scintilla/lexers/LexPO.cxx
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -MT libscintilla_la-LexPO.lo -MD -MP -MF $(DEPDIR)/libscintilla_la-LexPO.Tpo -c -o libscintilla_la-LexPO.lo `test -f 'scintilla/lexers/LexPO.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexPO.cxx
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscintilla_la-LexPO.Tpo $(DEPDIR)/libscintilla_la-LexPO.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='scintilla/lexers/LexPO.cxx' object='libscintilla_la-LexPO.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -c -o libscintilla_la-LexPO.lo `test -f 'scintilla/lexers/LexPO.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexPO.cxx
+
+libscintilla_la-LexLaTeX.lo: scintilla/lexers/LexLaTeX.cxx
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -MT libscintilla_la-LexLaTeX.lo -MD -MP -MF $(DEPDIR)/libscintilla_la-LexLaTeX.Tpo -c -o libscintilla_la-LexLaTeX.lo `test -f 'scintilla/lexers/LexLaTeX.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexLaTeX.cxx
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscintilla_la-LexLaTeX.Tpo $(DEPDIR)/libscintilla_la-LexLaTeX.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='scintilla/lexers/LexLaTeX.cxx' object='libscintilla_la-LexLaTeX.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -c -o libscintilla_la-LexLaTeX.lo `test -f 'scintilla/lexers/LexLaTeX.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexLaTeX.cxx
+
+libscintilla_la-LexSTTXT.lo: scintilla/lexers/LexSTTXT.cxx
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -MT libscintilla_la-LexSTTXT.lo -MD -MP -MF $(DEPDIR)/libscintilla_la-LexSTTXT.Tpo -c -o libscintilla_la-LexSTTXT.lo `test -f 'scintilla/lexers/LexSTTXT.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexSTTXT.cxx
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscintilla_la-LexSTTXT.Tpo $(DEPDIR)/libscintilla_la-LexSTTXT.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='scintilla/lexers/LexSTTXT.cxx' object='libscintilla_la-LexSTTXT.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -c -o libscintilla_la-LexSTTXT.lo `test -f 'scintilla/lexers/LexSTTXT.cxx' || echo '$(srcdir)/'`scintilla/lexers/LexSTTXT.cxx
+
 libscintilla_la-LexerNoExceptions.lo: scintilla/lexlib/LexerNoExceptions.cxx
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -MT libscintilla_la-LexerNoExceptions.lo -MD -MP -MF $(DEPDIR)/libscintilla_la-LexerNoExceptions.Tpo -c -o libscintilla_la-LexerNoExceptions.lo `test -f 'scintilla/lexlib/LexerNoExceptions.cxx' || echo '$(srcdir)/'`scintilla/lexlib/LexerNoExceptions.cxx
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscintilla_la-LexerNoExceptions.Tpo $(DEPDIR)/libscintilla_la-LexerNoExceptions.Plo
@@ -1869,6 +1934,13 @@ libscintilla_la-LexerBase.lo: scintilla/lexlib/LexerBase.cxx
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='scintilla/lexlib/LexerBase.cxx' object='libscintilla_la-LexerBase.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -c -o libscintilla_la-LexerBase.lo `test -f 'scintilla/lexlib/LexerBase.cxx' || echo '$(srcdir)/'`scintilla/lexlib/LexerBase.cxx
+
+libscintilla_la-CharacterCategory.lo: scintilla/lexlib/CharacterCategory.cxx
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -MT libscintilla_la-CharacterCategory.lo -MD -MP -MF $(DEPDIR)/libscintilla_la-CharacterCategory.Tpo -c -o libscintilla_la-CharacterCategory.lo `test -f 'scintilla/lexlib/CharacterCategory.cxx' || echo '$(srcdir)/'`scintilla/lexlib/CharacterCategory.cxx
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscintilla_la-CharacterCategory.Tpo $(DEPDIR)/libscintilla_la-CharacterCategory.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='scintilla/lexlib/CharacterCategory.cxx' object='libscintilla_la-CharacterCategory.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscintilla_la_CPPFLAGS) $(CPPFLAGS) $(libscintilla_la_CXXFLAGS) $(CXXFLAGS) -c -o libscintilla_la-CharacterCategory.lo `test -f 'scintilla/lexlib/CharacterCategory.cxx' || echo '$(srcdir)/'`scintilla/lexlib/CharacterCategory.cxx
 
 mostlyclean-libtool:
 	-rm -f *.lo
