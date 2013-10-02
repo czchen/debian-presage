@@ -15,10 +15,10 @@ Build-Depends: debhelper (>= 7.0.50~),
  libgtk2.0-dev (>= 2.12),
  python-dbus
 Build-Depends-Indep: doxygen, graphviz
-Standards-Version: 3.9.3
+Standards-Version: 3.9.4
 Homepage: http://presage.sourceforge.net/
-Vcs-Git: git://presage.git.sourceforge.net/gitroot/presage/presage
-Vcs-Browser: http://presage.git.sourceforge.net/git/gitweb-index.cgi
+Vcs-Git: git://git.code.sf.net/p/presage/presage-debian
+Vcs-Browser: http://sourceforge.net/p/presage/presage-debian/ci/master/tree/
 
 Package: presage
 Section: misc
