@@ -1,3 +1,124 @@
+2014-09-13  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* presage-0.9: released.
+
+	* packaging/windows/presage_installer.nsi,
+	packaging/windows/win-buildpackage.sh: Improve Windows packaging
+	scripts to handle 32-bit and 64-bit builds.
+
+2014-09-11  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* configure.ac, NEWS, website/presage_database_dump.sql.gz:
+	preparing for 0.9 release.
+
+2014-09-06  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/python/prompter/prompter.py: Fix key press event handling
+	with modifiers enabled using latest wxPython.
+
+2014-09-04  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/python/pyprompter.desktop,
+	apps/gtk/gprompter/gprompter.desktop: Add categories.
+
+	* apps/gtk/gprompter/scintilla/*: Update to latest scintilla 3.50
+	release.
+
+2014-08-06  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/Makefile.am,
+	test/lib/core/context_tracker/Makefile.am,
+	test/lib/predictors/dbconnector/Makefile.am,
+	test/lib/core/context_tracker/contextTrackerTestRunner.cpp: fix
+	problems caused by subdir-objects automake option.
+
+2014-02-16  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* configure.ac: bumped version up to 0.9~beta
+
+	* bindings/c#/presage.net/Presage.cs,
+	bindings/c#/presage.net/Properties/AssemblyInfo.cs,
+	bindings/c#/presage_csharp_demo/presage_csharp_demo.cs: fix
+	presage.net assembly name and version, add ability to find presage
+	installation using the Windows registry to presage.net assembly.
+
+2014-01-28  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/notepad++/PluginDefinition.cpp: fix bug in Notepad++
+	presage plugin help menu item.
+
+	* apps/notepad++/NppPresage.vcxproj: upgrade presage Notepad++
+	plugin project to VS2013.
+
+	* packaging/windows/README,
+	packaging/windows/presage_installer.nsi,
+	packaging/windows/win-buildpackage.sh: add C# artefacts to Windows
+	installer.
+
+2014-01-27  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* c#/presage_csharp*: rename presage_csharp project to presage.net
+
+2014-01-24  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* c#/presage_csharp/Presage.cs: add error checking and presage
+	exception in c#.
+
+2014-01-19  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* c#/README.txt, c#/presage_csharp.sln,
+	c#/presage_csharp/Presage.cs,
+	c#/presage_csharp/Properties/AssemblyInfo.cs,
+	c#/presage_csharp/presage_csharp.csproj,
+	c#/presage_csharp_demo/App.config,
+	c#/presage_csharp_demo/presage_csharp_demo.cs,
+	c#/presage_csharp_demo/presage_csharp_demo.csproj: add
+	experimental C# binding.
+
+2014-01-17  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src/lib/presage.h: rearrange C++ and C APIs layout in header.
+
+	* doc/INSTALL_MinGW32_MSYS_dev_env.txt: add steps to generate
+	Python import library on Windows.
+
+2013-11-17  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* doc/INSTALL_MinGW64_MSYS_dev_env.txt,
+	doc/INSTALL_MinGW32_MSYS_dev_env.txt: add QT and QScintilla steps.
+
+2013-11-17  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* bindings/c/README_Visual_Studio.txt: update instructions to
+	build and link in 64-bit mode.
+
+	* doc/INSTALL_MinGW32_MSYS_dev_env.txt,
+	doc/INSTALL_MinGW64_MSYS_dev_env.txt: add build and install
+	instructions to build with mingw-w64 mingw-builds toolchain.
+
+2013-11-16  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/python/Makefile.am, bindings/python/Makefile.am: fix build
+	issue in mingw-w64 mingw-buils toolchain.
+
+2013-11-06  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* website/presage_database_dump.sql.gz: update documentation and
+	development pages.
+
+2013-08-24  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/notepad++/PluginDefinition.cpp,
+	src/lib/core/prediction.cpp, src/lib/core/predictorRegistry.cpp,
+	src/lib/predictors/ARPAPredictor.cpp,
+	src/lib/predictors/dejavuPredictor.cpp: fix issues uncovered with
+	cppcheck and reported by Hugh Sasse.
+
+2013-08-23  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* packaging/windows/presage_installer.nsi: remove D-BUS files from
+	Windows packaging.
+
 2013-08-17  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
 
 	* configure.ac, NEWS, website/presage_database_dump.sql.gz:

@@ -519,24 +519,35 @@ class PrompterEditor(wx.stc.StyledTextCtrl):
    def OnChar(self, event):
       print "------------ OnChar() handler"
 
-      keycode = event.GetKeyCode()
-      
-      if self.__FunctionKey(keycode):
-         self.__HandleFunctionKey(keycode)
+      if event.HasModifiers():
+         if self.AutoCompActive():
+            self.AutoCompCancel()
+
+         # CTRL or ALT pressed
+         # let the default menu handlers handle the command event
+         event.Skip()
+
       else:
-         key = unichr(keycode)
+         key = event.GetUnicodeKey()
 
-         self.parent.fileMenu.Enable(wx.ID_SAVE, True)
-         self.parent.fileMenu.Enable(wx.ID_SAVEAS, True)
+         keycode = event.GetKeyCode()
+         if self.__FunctionKey(keycode):
+            self.__HandleFunctionKey(keycode)
 
-         if self.__AutoPunctuation(key):
-            # autopunctuation takes care of adding text and updating
-            # prsg, nothing to do here.
-            pass
          else:
-            self.AddText(key)
+            key = unichr(key)
 
-         self.__ShowPrediction()
+            self.parent.fileMenu.Enable(wx.ID_SAVE, True)
+            self.parent.fileMenu.Enable(wx.ID_SAVEAS, True)
+
+            if self.__AutoPunctuation(key):
+               # autopunctuation takes care of adding text and updating
+               # prsg, nothing to do here.
+               pass
+            else:
+               self.AddText(key)
+
+               self.__ShowPrediction()
 
    def ShowPrediction(self, string = ''):
       self.__ShowPrediction(string)
