@@ -71,12 +71,6 @@ public:
 
 	/// The list string contains a sequence of words separated by the separator character
 	void SetList(const char *list);
-	
-	/// Return the position of the currently selected list item
-	int GetSelection() const;
-
-	/// Return the value of an item in the list
-	std::string GetValue(int item) const;
 
 	/// Return the position of the currently selected list item
 	int GetSelection() const;
