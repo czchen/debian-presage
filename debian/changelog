@@ -1,3 +1,22 @@
+presage (0.9-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Use dh-autoreconf to fix FTBFS on ppc64el. Closes: #756518
+  * Upgrade python-wxgtk2.8 dependency to python-wxgtk3.0. Closes: #758499
+  * Fix out-of-date-standards-version lintian warning.
+  * Convert libpresage1, libpresage1-dbg, libpresage-data, and
+    libpresage-dev binary packages to multiarch. Closes: #728979
+
+ -- Matteo Vescovi <matteo.vescovi@yahoo.co.uk>  Wed, 24 Sep 2014 18:55:39 +0100
+
+presage (0.8.9-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Update for wxPython3.0 (Closes: #758499):
+    + New patch: wxpy3.0-compat.patch
+
+ -- Olly Betts <olly@survex.com>  Sun, 14 Sep 2014 16:19:03 +0000
+
 presage (0.8.9-1) unstable; urgency=low
 
   * New upstream release.

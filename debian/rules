@@ -5,7 +5,7 @@
 PYVERS=$(shell pyversions -vs)
 
 %:
-	dh $@ --with autotools_dev --with python2
+	dh $@ --with autoreconf --with python2
 
 
 # Enable build hardening

@@ -2,8 +2,10 @@ Source: presage
 Section: devel
 Priority: extra
 Maintainer: Matteo Vescovi <matteo.vescovi@yahoo.co.uk>
-Build-Depends: debhelper (>= 7.0.50~),
+Build-Depends: debhelper (>= 9~),
  autotools-dev,
+ dh-autoreconf,
+ pkg-config,
  libsqlite3-dev,
  sqlite3,
  libtinyxml-dev (>= 2.5.3),
@@ -14,9 +16,9 @@ Build-Depends: debhelper (>= 7.0.50~),
  swig2.0 (>= 2.0.4),
  libgtk2.0-dev (>= 2.12),
  python-dbus,
- python-wxgtk2.8
+ python-wxgtk3.0
 Build-Depends-Indep: doxygen, graphviz
-Standards-Version: 3.9.4
+Standards-Version: 3.9.6
 Homepage: http://presage.sourceforge.net/
 Vcs-Git: git://git.code.sf.net/p/presage/presage-debian
 Vcs-Browser: http://sourceforge.net/p/presage/presage-debian/ci/master/tree/
@@ -63,6 +65,8 @@ Description: intelligent predictive text entry platform (documentation)
 Package: libpresage1
 Section: libs
 Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
  ${misc:Depends},
  libpresage-data (= ${source:Version})
@@ -85,6 +89,7 @@ Description: intelligent predictive text entry platform (shared library)
 
 Package: libpresage1-dbg
 Architecture: any
+Multi-Arch: same
 Section: debug
 Depends: libpresage1 (= ${binary:Version}), ${misc:Depends}
 Description: intelligent predictive text entry platform (shared library debugging symbols)
@@ -107,6 +112,7 @@ Description: intelligent predictive text entry platform (shared library debuggin
 Package: libpresage-data
 Section: libs
 Architecture: all
+Multi-Arch: foreign
 Depends: ${misc:Depends}
 Recommends: presage
 Description: intelligent predictive text entry platform (data files)
@@ -119,6 +125,7 @@ Package: libpresage-dev
 Section: libdevel
 Suggests: libpresage-doc
 Architecture: any
+Multi-Arch: same
 Depends: libpresage1 (= ${binary:Version}), ${misc:Depends}
 Description: intelligent predictive text entry platform (development files)
  Presage is an intelligent predictive text entry platform.
@@ -178,7 +185,7 @@ Architecture: all
 Depends: ${python:Depends},
  ${misc:Depends},
  python-presage (>= ${source:Version}),
- python-wxgtk2.8 (>= 2.8.7)
+ python-wxgtk3.0
 Description: intelligent predictive wxPython text editor
  This package contains the wxPython predictive text editor pyprompter.
  .
@@ -194,7 +201,7 @@ Architecture: all
 Depends: ${python:Depends},
  ${misc:Depends},
  python-presage (>= ${source:Version})
-Description: intelligent predictive text entry platform (dbus service)
+Description: intelligent predictive text entry platform (D-Bus service)
  Presage is an intelligent predictive text entry platform.
  .
  This package contains the presage D-Bus service.
