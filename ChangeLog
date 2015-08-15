@@ -1,3 +1,228 @@
+2015-04-20  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* configure.ac, NEWS, website/presage_database_dump.sql.gz:
+	preparing for 0.9.1 release.
+
+	* bindings/csharp/presage_wcf_service_console_host/Program.cs,
+	bindings/csharp/presage_wcf_service_system_tray/PresageWCFHostForm.cs:
+	handle exception on service host open.
+
+2015-04-19  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* packaging/windows/presage_installer.nsi: add silent installation
+	mode to installer, terminate processes prior to uninstalling, add
+	flag to skip notepad++ plugin installation when /NoNpp flag is
+	passed to installer, install Notepad++ presage plugin only in
+	32-bit installer.
+
+	* apps/gtk/gprompter/scintilla/*: Revert to scintilla 3.50
+	release.
+
+2015-03-08  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* bindings/csharp/presage_wcf_service/App.config,
+	bindings/csharp/presage_wcf_service/IPresageService.cs,
+	bindings/csharp/presage_wcf_service/PresageService.cs,
+	bindings/csharp/presage_wcf_service/presage_wcf_service.csproj,
+	bindings/csharp/presage_wcf_service_console_host/Program.cs,
+	bindings/csharp/presage_wcf_service_console_host/presage_wcf_service_console_host.csproj,
+	bindings/csharp/presage_wcf_service_system_tray/PresageWCFHostForm.cs:
+	Add service versioning to namespaces and endpoint addresses to
+	safeguard against future changes.
+
+2015-03-07  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/scintilla/*: Update to latest scintilla 3.54
+	release.
+
+2015-03-05  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* bindings/csharp/presage_wcf_service_system_tray/AboutForm.cs:
+	add license and close buttons to about dialog, add action to open
+	link URL.
+
+2015-03-04  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* packaging/windows/presage_installer.nsi: remove missed files in
+	uninstaller.
+
+	* bindings/csharp/presage_wcf_service_system_tray/AboutForm.Designer.cs,
+	bindings/csharp/presage_wcf_service_system_tray/AboutForm.cs,
+	bindings/csharp/presage_wcf_service_system_tray/AboutForm.resx,
+	bindings/csharp/presage_wcf_service_system_tray/Makefile.am,
+	bindings/csharp/presage_wcf_service_system_tray/PresageSystemTray.cs,
+	bindings/csharp/presage_wcf_service_system_tray/presage_wcf_service_system_tray.csproj:
+	add about dialog.
+
+2015-03-02  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* packaging/windows/README,
+	packaging/windows/presage_installer.nsi: add WCF service tray app
+	to Windows installer.
+
+2015-03-01  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* bindings/csharp/presage_wcf_service_console_host/Program.cs,
+	bindings/csharp/presage_wcf_service_system_tray/PresageWCFHostForm.cs:
+	check for existance of behaviour prior to setting it.
+
+	* configure.ac, bindings/csharp/Makefile.am,
+	bindings/csharp/presage_wcf_service_system_tray/Makefile.am:
+	package systray app in tarball.
+
+2015-02-28  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* bindings/csharp/presage.net.sln,
+	bindings/csharp/presage_wcf_service/App.config,
+	bindings/csharp/presage_wcf_service/presage_wcf_service.csproj,
+	bindings/csharp/presage_wcf_service_console_host/Program.cs,
+	bindings/csharp/presage_wcf_service_system_tray/App.config,
+	bindings/csharp/presage_wcf_service_system_tray/ClassDiagram1.cd,
+	bindings/csharp/presage_wcf_service_system_tray/PresageSystemTray.cs,
+	bindings/csharp/presage_wcf_service_system_tray/PresageWCFHostForm.Designer.cs,
+	bindings/csharp/presage_wcf_service_system_tray/PresageWCFHostForm.cs,
+	bindings/csharp/presage_wcf_service_system_tray/Program.cs,
+	bindings/csharp/presage_wcf_service_system_tray/Properties/AssemblyInfo.cs,
+	bindings/csharp/presage_wcf_service_system_tray/Properties/Resources.Designer.cs,
+	bindings/csharp/presage_wcf_service_system_tray/Properties/Resources.resx,
+	bindings/csharp/presage_wcf_service_system_tray/Properties/Settings.Designer.cs,
+	bindings/csharp/presage_wcf_service_system_tray/Properties/Settings.settings,
+	bindings/csharp/presage_wcf_service_system_tray/Resources/presage.ico,
+	bindings/csharp/presage_wcf_service_system_tray/Resources/presage.png,
+	bindings/csharp/presage_wcf_service_system_tray/Resources/presage.svg,
+	bindings/csharp/presage_wcf_service_system_tray/presage_wcf_service_system_tray.csproj,
+	resources/presage.ico: Add initial implementation of presage WCF
+	service system tray hosting application, change mex Metadata
+	Exchance endpoint to use named pipe binding.
+
+2015-02-23  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* bindings/csharp/presage_csharp_demo/presage_csharp_demo.csproj,
+	bindings/csharp/presage_wcf_service/App.config,
+	bindings/csharp/presage_wcf_service/PresageService.cs,
+	bindings/csharp/presage_wcf_service_console_host/Program.cs: use
+	NetNamedPipeBinding, "a secure, reliable, optimized binding that
+	is suitable for on-machine communication between WCF
+	applications".
+
+2015-02-22  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* packaging/windows/presage_installer.nsi,
+	packaging/windows/README: add WCF service binaries to installer.
+
+2015-02-21  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* bindings/csharp/*: first stab at implementing a WCF presage
+	service.
+
+	* src/lib/presage.cpp: fix problem with programmatically setting
+	new configuration variable.
+
+2015-02-15  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src/lib/core/predictorRegistry.h,
+	src/lib/core/predictorRegistry.cpp: implement incremental
+	activation and deactivation of predictors.
+
+	* src/lib/core/predictorActivator.h: clean up stale code.
+
+2015-02-14  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src/lib/predictors/smoothedNgramPredictor.cpp: enhance learning
+	performance.
+
+2015-02-13  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/gprompter.c: fix crash when prediction empty.
+
+	* src/lib/predictors/dbconnector/sqliteDatabaseConnector.cpp: add
+	support for in-memory SQLite databases :memory:
+
+2015-02-10  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* bindings/csharp: renamed from bindings/c# to appease autoconf.
+
+	* bindings/Makefile.am, bindings/csharp/Makefile.am,
+	bindings/csharp/presage.net/Makefile.am,
+	bindings/csharp/presage_csharp_demo/Makefile.am, configure.ac:
+	distribute .NET binding code in tarball.
+
+2015-02-09  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* apps/gtk/gprompter/gprompter.c,
+	apps/notepad++/PluginDefinition.cpp,
+	apps/qt/qprompter/mainwindow.cpp, apps/qt/qprompter/mainwindow.h:
+	restrict the size of the context range returned by presage
+	callback object in the demo applications.
+
+2015-02-08  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* packaging/windows/presage_installer.nsi,
+	packaging/windows/win-buildpackage.sh: fix issue with local
+	installation directory string replacement in Windows installer
+	NSIS script.
+
+2015-02-07  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src/lib/core/context_tracker/contextTracker.cpp,
+	src/lib/core/context_tracker/contextTracker.h,
+	resources/profiles/presage.xml.template: implemented
+	ONLINE_LEARNING configuration variable to control when online
+	machine learning is enabled.
+
+	* test/lib/core/context_tracker/contextTrackerTest.cpp,
+	test/lib/core/selectorTest.cpp,
+	test/lib/predictors/dejavuPredictorTest.cpp,
+	test/lib/predictors/newSmoothedNgramPredictorTest.cpp,
+	test/lib/predictors/newSmoothedNgramPredictorTest.h,
+	test/lib/predictors/recencyPredictorTest.cpp: updated tests and
+	added online and offline learning test for smoothed n-gram
+	predictor.
+
+2015-02-06  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* bindings/c#/presage.net/Presage.cs,
+	bindings/c#/presage_csharp_demo/presage_csharp_demo.cs: add
+	offline learn method to presage .NET binding.
+
+2015-02-05  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* src/lib/presage.cpp, src/lib/presage.h, src/lib/libpresage.map,
+	src/lib/core/context_tracker/contextTracker.cpp,
+	src/lib/core/context_tracker/contextTracker.h,
+	src/lib/predictors/smoothedNgramPredictor.cpp,
+	src/lib/predictors/smoothedNgramPredictor.h: add offline learn
+	method to presage C++ API.
+
+	* bindings/c/libpresage-1.def, bindings/c/presage_c_demo.c: add
+	offline learn method to presage C API.
+
+2015-02-04  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* bindings/c#/presage_csharp_demo/presage_csharp_demo.cs: make
+	demo a bit more verbose.
+
+2015-02-03  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* bindings/presage.i: change to C-style comments in interface file
+	to fix problem with latest SWIG.
+
+	* bindings/python/Makefile.am: fix build issue on Windows 64-bit.
+
+	* doc/INSTALL_MinGW32_MSYS_dev_env.txt,
+	doc/INSTALL_MinGW64_MSYS_dev_env.txt, apps/qt/qprompter/README:
+	update READMEs.
+
+2014-10-16  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* packaging/windows/presage_installer.nsi: fix Windows uninstaller
+	so that all installed files are removed during uninstallation.
+
+2014-09-29  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
+
+	* doc/Doxyfile.in, doc/Makefile.am: stop building LaTeX
+	documentation and only install documentation artefacts.
+
 2014-09-13  Matteo Vescovi  <matteo(dot)vescovi(at)yahoo(dot)co(dot)uk>
 
 	* presage-0.9: released.

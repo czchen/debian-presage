@@ -32,6 +32,7 @@
 const char* ContextTracker::LOGGER = "Presage.ContextTracker.LOGGER";
 const char* ContextTracker::SLIDING_WINDOW_SIZE = "Presage.ContextTracker.SLIDING_WINDOW_SIZE";
 const char* ContextTracker::LOWERCASE_MODE = "Presage.ContextTracker.LOWERCASE_MODE";
+const char* ContextTracker::ONLINE_LEARNING = "Presage.ContextTracker.ONLINE_LEARNING";
 
 ContextTracker::ContextTracker(Configuration* config,
 			       PredictorRegistry* registry,
@@ -73,6 +74,7 @@ ContextTracker::ContextTracker(Configuration* config,
     dispatcher.map (config->find (LOGGER), & ContextTracker::set_logger);
     dispatcher.map (config->find (SLIDING_WINDOW_SIZE), & ContextTracker::set_sliding_window_size);
     dispatcher.map (config->find (LOWERCASE_MODE), & ContextTracker::set_lowercase_mode);
+    dispatcher.map (config->find (ONLINE_LEARNING), & ContextTracker::set_online_learning);
 }
 
 ContextTracker::~ContextTracker()
@@ -98,6 +100,12 @@ void ContextTracker::set_lowercase_mode (const std::string& value)
     logger << INFO << "LOWERCASE_MODE: " << value << endl;
 }
 
+void ContextTracker::set_online_learning(const std::string& value)
+{
+    online_learning = Utility::isYes(value);
+    logger << INFO << "ONLINE_LEARNING: " << value << endl;
+}
+
 const PresageCallback* ContextTracker::callback(const PresageCallback* new_callback)
 {
     const PresageCallback* result = context_tracker_callback;
@@ -117,41 +125,53 @@ bool ContextTracker::contextChange()
 
 void ContextTracker::update()
 {
-    // the first step in the update procedure is to learn from the
-    // newly entered text.
-
-    std::stringstream change;
-
     // detect change that needs to be learned
-    change << contextChangeDetector->change(getPastStream());
-    logger << INFO << "update(): change: " << change.str() << endl;
+    std::string change = contextChangeDetector->change(getPastStream());
 
-    // split change up into tokens
-    std::vector<std::string> change_tokens;
-    ForwardTokenizer tok(change,
+    if (online_learning)
+    {
+	learn (change);
+    }
+
+    // update sliding window
+    contextChangeDetector->update_sliding_window(getPastStream());
+}
+
+void ContextTracker::learn(const std::string& text) const
+{
+    logger << INFO << "learn(): text: " << text << endl;
+
+    std::stringstream stream_to_learn(text);
+
+    // split stream up into tokens
+    std::vector<std::string> tokens;
+    ForwardTokenizer tok(stream_to_learn,
 			 blankspaceChars,
 			 separatorChars);
     tok.lowercaseMode(lowercase_mode);
-    logger << INFO << "update(): tokenized change: ";
+    logger << INFO << "learn(): tokenized change: ";
     while (tok.hasMoreTokens()) {
 	std::string token = tok.nextToken();
-	change_tokens.push_back(token);
+	tokens.push_back(token);
 	logger << INFO << token << '|';
     }
     logger << INFO << endl;
 
-    if (! change_tokens.empty()) {
+    if (! tokens.empty()) {
 	// remove prefix (partially entered token or empty token)
-	change_tokens.pop_back();
+	tokens.pop_back();
     }
 
-    logger << INFO << "update(): sanitized change tokens: ";
-    for (std::vector<std::string>::const_iterator it = change_tokens.begin();
-	 it != change_tokens.end();
-	 it++) {
-	logger << INFO << *it << '|';
+    if ((logger << INFO).shouldLog())
+    {
+	logger << "learn(): sanitized change: ";
+	for (std::vector<std::string>::const_iterator it = tokens.begin();
+	     it != tokens.end();
+	     it++) {
+	    logger << *it << '|';
+	}
+	logger << endl;
     }
-    logger << INFO << endl;
 
     // time to learn
     PredictorRegistry::Iterator it = predictorRegistry->iterator();
@@ -159,11 +179,8 @@ void ContextTracker::update()
 
     while (it.hasNext()) {
 	predictor = it.next();
-	predictor->learn(change_tokens);
+	predictor->learn(tokens);
     }
-
-    // update sliding window
-    contextChangeDetector->update_sliding_window(getPastStream());
 }
 
 std::string ContextTracker::getPrefix() const

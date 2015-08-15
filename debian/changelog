@@ -1,3 +1,10 @@
+presage (0.9.1-1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * New upstream release (Closes: #792527)
+
+ -- Aron Xu <aron@debian.org>  Sat, 15 Aug 2015 23:44:45 +0800
+
 presage (0.9-1) unstable; urgency=medium
 
   * New upstream release.

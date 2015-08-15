@@ -21,6 +21,6 @@
 
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS =	python c
+SUBDIRS =	python c csharp
 
 EXTRA_DIST =	presage.i
