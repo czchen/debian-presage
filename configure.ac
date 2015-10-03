@@ -22,8 +22,8 @@ dnl 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 dnl Process this file with autoconf to produce a configure script.
 
 
-AC_INIT([presage],[0.9],[matteo.vescovi@yahoo.co.uk])
-AM_INIT_AUTOMAKE([-Wall])
+AC_INIT([presage],[0.9.1],[matteo.vescovi@yahoo.co.uk])
+AM_INIT_AUTOMAKE([1.9 tar-ustar -Wall])
 
 AC_CONFIG_SRCDIR([src/lib/presage.cpp])
 AC_CONFIG_HEADERS([config.h:config.hin])
@@ -562,6 +562,12 @@ AC_CONFIG_FILES([
 	bindings/c/Makefile
 	bindings/python/setup.py
 	bindings/python/Makefile
+	bindings/csharp/Makefile
+	bindings/csharp/presage.net/Makefile
+	bindings/csharp/presage_csharp_demo/Makefile
+	bindings/csharp/presage_wcf_service/Makefile
+	bindings/csharp/presage_wcf_service_console_host/Makefile
+	bindings/csharp/presage_wcf_service_system_tray/Makefile
 	apps/Makefile
 	apps/gtk/Makefile
 	apps/gtk/gpresagemate/Makefile
@@ -626,6 +632,10 @@ AC_MSG_RESULT([
   Bindings:
     C++ ......................... yes
     C ........................... yes
+    C# .NET ..................... manual build required
+    .NET WCF service ............ manual build required
+    .NET WCF service tray app.... manual build required
+    .NET WCF service console app. manual build required
     Python ...................... ${build_python_binding}
 
   Additional applications:
@@ -635,7 +645,8 @@ AC_MSG_RESULT([
     pypresagemate: .............. ${enable_pypresagemate}
     GTK+ presage mate: .......... ${build_gtk_presage_mate}
     GTK+ prompter: .............. ${build_gtk_prompter}
-
+    Notepad++ plugin: ........... manual build required
+    QT prompter: ................ manual build required
 
   Additional resources:
     ARPA format ngram: .......... ${build_arpa_ngram_resources}

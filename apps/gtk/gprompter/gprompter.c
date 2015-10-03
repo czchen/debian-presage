@@ -44,10 +44,11 @@
 #include "dirs.h"
 
 
-char*       glob_filename;
-int         glob_function_keys_mode;
-const char* glob_autopunctuation_whitespace = " ";
-const char* glob_autopunctuation_chars = ".,;:'?!$%&";
+static char*       glob_filename;
+static int         glob_function_keys_mode;
+static const char* glob_autopunctuation_whitespace = " ";
+static const char* glob_autopunctuation_chars = ".,;:'?!$%&";
+static const long  glob_max_callback_context_range_size = 1024 * 2;
 
 #define PROGRAM_NAME "gprompter"
 
@@ -61,6 +62,11 @@ static const char* get_past_stream (void* scintilla)
 					      SCI_GETCURRENTPOS,
 					      0,
 					      0);
+    range.chrg.cpMin = range.chrg.cpMax - glob_max_callback_context_range_size;
+    if (range.chrg.cpMin < 0)
+    {
+	range.chrg.cpMin = 0;
+    }
 
     free (range.lpstrText);  // safe to free on first call, static struct members init'ed to zero
     range.lpstrText = (char*) malloc (range.chrg.cpMax - range.chrg.cpMin + 1);
@@ -92,6 +98,10 @@ static const char* get_future_stream (void* scintilla)
 					      SCI_GETTEXTLENGTH,
 					      0,
 					      0);
+    if (range.chrg.cpMax > range.chrg.cpMin + glob_max_callback_context_range_size)
+    {
+	range.chrg.cpMax = range.chrg.cpMin + glob_max_callback_context_range_size;
+    }
 
     free (range.lpstrText);  // safe to free on first call, static struct members init'ed to zero
     range.lpstrText = (char*) malloc (range.chrg.cpMax - range.chrg.cpMin + 1);
@@ -217,9 +227,9 @@ static char* stringify_prediction (char** prediction)
 	    *(wp - 1) = '\0';
 	}
 	else if (wp == result)
-        {
-            *(wp++) = '\0';
-        }
+	{
+	    *(wp++) = '\0';
+	}
 
 	/* Resize memory to the optimal size.  */
 	newp = (char*) realloc (result, wp - result);
@@ -260,11 +270,14 @@ static void show_prediction(ScintillaObject* scintilla, presage_t presage)
 				    0,
 				    0);
 	}
-	
-	scintilla_send_message (scintilla,
-				SCI_USERLISTSHOW,
-				1,
-				(sptr_t) list);
+
+	if (strlen(list) > 0)
+	{
+	    scintilla_send_message (scintilla,
+				    SCI_USERLISTSHOW,
+				    1,
+				    (sptr_t) list);
+	}
 	
 	free (list);
 
