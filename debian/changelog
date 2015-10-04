@@ -3,7 +3,7 @@ presage (0.9.1-1.1) unstable; urgency=medium
   * Non-maintainer upload.
   * Rename package for GCC 5 transition (Closes: #799642)
 
- -- ChangZhuo Chen (陳昌倬) <czchen@debian.org>  Sat, 03 Oct 2015 23:23:42 +0800
+ -- ChangZhuo Chen (陳昌倬) <czchen@debian.org>  Sun, 04 Oct 2015 13:52:15 +0800
 
 presage (0.9.1-1) unstable; urgency=medium
 
