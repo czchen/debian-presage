@@ -39,7 +39,7 @@ override_dh_auto_install:
 # Override needed to create debug packages
 #
 override_dh_strip:
-	dh_strip -plibpresage1 --dbg-package=libpresage1-dbg
+	dh_strip -plibpresage1v5 --dbg-package=libpresage1-dbg
 	dh_strip -ppresage --dbg-package=presage-dbg
 	dh_strip -pgprompter --dbg-package=gprompter-dbg
 	dh_strip -ppython-presage --dbg-package=python-presage-dbg
