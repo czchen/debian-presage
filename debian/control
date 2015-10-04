@@ -70,6 +70,8 @@ Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends},
  ${misc:Depends},
  libpresage-data (= ${source:Version})
+Breaks: libpresage1
+Replaces: libpresage1
 Description: intelligent predictive text entry platform (shared library)
  Presage is an intelligent predictive text entry platform.
  .
